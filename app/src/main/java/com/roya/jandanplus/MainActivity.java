@@ -72,9 +72,10 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    private void setActionBar(){
+    private void setActionBar() {
         LayoutInflater inflater = (LayoutInflater) getActionBar()
                 .getThemedContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
         View customActionBarView = inflater.inflate(R.layout.actionbar, null);
 
         ActionBar actionBar = getActionBar();

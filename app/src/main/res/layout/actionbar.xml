@@ -21,31 +21,52 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/imageView5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:background="#eeeeee">
 
-<!--
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button"
-            android:layout_gravity="center_vertical" />
 
         <Button
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="首页"
+            android:id="@+id/button1"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:textColor="#a4a4a4"
+            android:background="@null"/>
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bu"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="无聊图"
             android:id="@+id/button2"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:textColor="#a4a4a4"
+            android:background="@null"/>
 
-        <Button
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bu"/>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="妹子图"
             android:id="@+id/button3"
-            android:layout_gravity="center_vertical" /> -->
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:textColor="#a4a4a4"
+            android:background="@null"/>
+
     </LinearLayout>
 
 </RelativeLayout>
