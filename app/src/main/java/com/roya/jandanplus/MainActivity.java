@@ -15,9 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import android.support.v4.view.ViewPager;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -25,6 +27,9 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity {
 
+    private Button button1;
+    private Button button2;
+    private Button button3;
 
     private ViewPager mPager;
     private ArrayList<Fragment> fragmentList;
@@ -50,9 +55,28 @@ public class MainActivity extends FragmentActivity {
         fragmentList.add(mfragment1);
         fragmentList.add(mfragment2);
         fragmentList.add(mfragment3);
-
         mPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()));
 
+        View.OnClickListener headler = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view == button1){
+                    mPager.setCurrentItem(0);
+                }
+                else if (view == button2){
+                    mPager.setCurrentItem(1);
+                }
+                else if (view == button3){
+                    mPager.setCurrentItem(2);
+                }
+            }
+        };
+        button1 = (Button)findViewById(R.id.button1);
+        button2 = (Button)findViewById(R.id.button2);
+        button3 = (Button)findViewById(R.id.button3);
+        button1.setOnClickListener(headler);
+        button2.setOnClickListener(headler);
+        button3.setOnClickListener(headler);
     }
 
     private class FragmentPagerAdapter extends FragmentStatePagerAdapter {
