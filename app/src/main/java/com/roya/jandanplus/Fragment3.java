@@ -30,7 +30,7 @@ public class Fragment3 extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        activity = getActivity();
+
     }
 
     @Override
