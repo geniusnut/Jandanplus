@@ -11,7 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Fragment1 extends ListFragment {
 
@@ -57,8 +63,22 @@ public class Fragment1 extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, presidents));
+
+        List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
+
+        Map<String, Object> item = new HashMap<String, Object>();
+        for (int i = 0; i < 20; i++){
+            item.put("image", R.drawable.loading);
+            item.put("title", "吃我大棒啦");
+            item.put("by", "roya");
+            item.put("time", "3min ago");
+            items.add(item);
+        }
+
+
+        setListAdapter(new SimpleAdapter(getActivity(),items,R.layout.fragment1_item,
+                new String[] { "image", "title", "by", "time"},
+                new int[] { R.id.image,R.id.title, R.id.by,R.id.time} ));
     }
 
     @Override
