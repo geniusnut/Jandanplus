@@ -6,11 +6,15 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
+import android.support.v4.view.MotionEventCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -26,24 +30,6 @@ public class Fragment1 extends ListFragment {
     private Button button2;
     private Button button3;
 
-    String[] presidents = {
-            "Dwight D. Eisenhower",
-            "John F. Kennedy",
-            "Lyndon B. Johnson",
-            "Richard Nixon",
-            "Gerald Ford",
-            "Jimmy Carter",
-            "Ronald Reagan",
-            "George H. W. Bush",
-            "Bill Clinton",
-            "George W. Bush",
-            "Barack Obama",
-            "br e",
-            "   qr",
-            "cc",
-            "vv",
-            "ado"
-    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +38,38 @@ public class Fragment1 extends ListFragment {
                 R.layout.fragment_page_1, container, false);
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle bl){
+        super.onActivityCreated(bl);
+
+        getListView().setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+
+                int action = MotionEventCompat.getActionMasked(event);
+                switch (action) {
+                    case (MotionEvent.ACTION_DOWN):
+                        Log.d("T", "Action was DOWN");
+                        return false;
+                    case (MotionEvent.ACTION_MOVE):
+                        Log.d("T", "Action was MOVE");
+                        return false;
+                    case (MotionEvent.ACTION_UP):
+                        Log.d("T", "Action was UP");
+                        return false;
+                    case (MotionEvent.ACTION_CANCEL):
+                        Log.d("T", "Action was CANCEL");
+                        return false;
+                    case (MotionEvent.ACTION_OUTSIDE):
+                        Log.d("T", "Movement occurred outside bounds " +
+                                "of current screen element");
+                        return false;
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 
     @Override
@@ -74,7 +92,6 @@ public class Fragment1 extends ListFragment {
             item.put("time", "3min ago");
             items.add(item);
         }
-
 
         setListAdapter(new SimpleAdapter(getActivity(),items,R.layout.fragment1_item,
                 new String[] { "image", "title", "by", "time"},
