@@ -5,10 +5,10 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingLeft="6dp"
-    android:paddingRight="6dp"
-    android:paddingTop="4dp"
-    android:paddingBottom="3dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
     >
 
     <LinearLayout
@@ -16,35 +16,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:paddingTop="1dp"
-        android:paddingBottom="2dp"
-        android:background="@android:drawable/dialog_holo_light_frame">
+        android:paddingBottom="4dp"
+        android:background="@drawable/edbtc"
+        >
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff">
+            android:background="#00ffffff">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="180dp"
                 android:scaleType="centerCrop"
                 android:id="@+id/image"
-                android:src="@drawable/loading"
-                android:layout_gravity="center_horizontal" />
+                android:src="@drawable/loading"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
                 android:text="TITLE"
                 android:textSize="9pt"
-                android:textColor="#424242"
+                android:textColor="#3f484f"
                 android:id="@+id/title"
-                android:layout_gravity="center_horizontal" />
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"/>
 
 
             <RelativeLayout
@@ -56,17 +52,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="updater @flag"
-                    android:textColor="#5e5e5e"
+                    android:text="updater - flag"
+                    android:textColor="#9fa3a7"
                     android:id="@+id/by"
                     android:layout_gravity="center_horizontal" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="time ago"
-                    android:id="@+id/time"
-                    android:textColor="#5e5e5e"
+                    android:text="✉17"
+                    android:id="@+id/cont"
+                    android:textColor="#9fa3a7"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />

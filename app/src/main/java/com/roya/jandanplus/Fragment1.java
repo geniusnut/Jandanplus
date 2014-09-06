@@ -87,15 +87,15 @@ public class Fragment1 extends ListFragment {
         Map<String, Object> item = new HashMap<String, Object>();
         for (int i = 0; i < 20; i++){
             item.put("image", R.drawable.loading);
-            item.put("title", "吃我大棒啦");
+            item.put("title", "Title");
             item.put("by", "roya");
-            item.put("time", "3min ago");
+            item.put("cont","✉"+"17");
             items.add(item);
         }
 
         setListAdapter(new SimpleAdapter(getActivity(),items,R.layout.fragment1_item,
-                new String[] { "image", "title", "by", "time"},
-                new int[] { R.id.image,R.id.title, R.id.by,R.id.time} ));
+                new String[] { "image", "title", "by", "cont"},
+                new int[] { R.id.image,R.id.title, R.id.by, R.id.cont} ));
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Fragment1 extends ListFragment {
             if(button1  == null) { button1 = (Button)activity.findViewById(R.id.button1); }
             if(button2  == null) { button2 = (Button)activity.findViewById(R.id.button2); }
             if(button3  == null) { button3 = (Button)activity.findViewById(R.id.button3); }
-            button1.setTextColor(Color.parseColor("#fac627"));
+            button1.setTextColor(Color.parseColor("#fabf3d"));
             button3.setTextColor(Color.parseColor("#a4a4a4"));
             button2.setTextColor(Color.parseColor("#a4a4a4"));
         } else { }
