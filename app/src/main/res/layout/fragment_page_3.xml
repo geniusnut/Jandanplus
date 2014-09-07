@@ -4,11 +4,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView style="?android:textAppearanceMedium"
-        android:padding="16dp"
-        android:lineSpacingMultiplier="1.2"
+    <ListView
+        android:id="@id/android:list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="3" />
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:scrollbars="none"
+        android:background="#e5e5e5"
+        >
+
+    </ListView>
 
 </LinearLayout>

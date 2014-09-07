@@ -1,6 +1,7 @@
 package com.roya.jandanplus;
 
 
+import android.app.ActionBar;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -44,29 +46,31 @@ public class Fragment1 extends ListFragment {
     public void onActivityCreated(Bundle bl){
         super.onActivityCreated(bl);
 
-        getListView().setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
+        final ListView listView = getListView();
+        final ActionBar actionbar = getActivity().getActionBar();
 
-                int action = MotionEventCompat.getActionMasked(event);
-                switch (action) {
-                    case (MotionEvent.ACTION_DOWN):
-                        Log.d("T", "Action was DOWN");
-                        return false;
-                    case (MotionEvent.ACTION_MOVE):
-                        Log.d("T", "Action was MOVE");
-                        return false;
-                    case (MotionEvent.ACTION_UP):
-                        Log.d("T", "Action was UP");
-                        return false;
-                    case (MotionEvent.ACTION_CANCEL):
-                        Log.d("T", "Action was CANCEL");
-                        return false;
-                    case (MotionEvent.ACTION_OUTSIDE):
-                        Log.d("T", "Movement occurred outside bounds " +
-                                "of current screen element");
-                        return false;
-                    default:
-                        return false;
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            int vPstition=0;
+
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+                //Log.e("ssc",""+listView.getFirstVisiblePosition());
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i2, int i3) {
+                if (actionbar != null) {
+                    if (listView.getFirstVisiblePosition() > 0) {
+                        if (listView.getFirstVisiblePosition() < vPstition){
+                            actionbar.show();
+                        } else {
+                            actionbar.hide();
+                        }
+                    } else {
+                        actionbar.show();
+                    }
+                    vPstition = listView.getFirstVisiblePosition();
                 }
             }
         });
