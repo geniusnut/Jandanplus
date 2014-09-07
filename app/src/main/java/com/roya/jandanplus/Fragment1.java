@@ -64,7 +64,7 @@ public class Fragment1 extends ListFragment {
                     if (listView.getFirstVisiblePosition() > 0) {
                         if (listView.getFirstVisiblePosition() < vPstition){
                             actionbar.show();
-                        } else {
+                        } else if (listView.getFirstVisiblePosition() != vPstition) {
                             actionbar.hide();
                         }
                     } else {
