@@ -13,9 +13,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -48,24 +52,94 @@ public class Fragment1 extends ListFragment {
 
         final ListView listView = getListView();
         final ActionBar actionbar = getActivity().getActionBar();
+        final ImageButton imageButton = (ImageButton) getActivity().findViewById(R.id.imageButton);
+        final float d = getActivity().getResources().getDisplayMetrics().density;
+
+        imageButton.setAlpha((float)0.8);
+
+
+
+        final TranslateAnimation translateAnimationDown = new TranslateAnimation(
+                Animation.ABSOLUTE, 0f,
+                Animation.ABSOLUTE, 0f,
+                Animation.ABSOLUTE, 0f,
+                Animation.ABSOLUTE, 88f * d);
+        translateAnimationDown.setDuration(300);
+
+        final TranslateAnimation translateAnimationUp = new TranslateAnimation(
+                Animation.ABSOLUTE, 0f,
+                Animation.ABSOLUTE, 0f,
+                Animation.ABSOLUTE, 88f * d,
+                Animation.ABSOLUTE, 0f);
+        translateAnimationUp.setDuration(300);
+
+        translateAnimationDown.setFillAfter(true);
+        translateAnimationUp.setFillAfter(true);
+
+        final boolean[] animationIsNotRuning = {true};
+        translateAnimationDown.setAnimationListener(new Animation.AnimationListener() {
+             @Override
+             public void onAnimationStart(Animation animation) {
+                animationIsNotRuning[0] = false;
+             }
+
+             @Override
+             public void onAnimationEnd(Animation animation) {
+                 imageButton.setVisibility(View.INVISIBLE);
+                 imageButton.clearAnimation();
+                 animationIsNotRuning[0] = true;
+
+             }
+
+             @Override
+             public void onAnimationRepeat(Animation animation) {
+
+             }
+        });
+        translateAnimationUp.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                animationIsNotRuning[0] = false;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                imageButton.setVisibility(View.VISIBLE);
+                imageButton.clearAnimation();
+                animationIsNotRuning[0] = true;
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
-            int vPstition=0;
+            int vPstition = 0;
 
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
-                //Log.e("ssc",""+listView.getFirstVisiblePosition());
             }
 
             @Override
             public void onScroll(AbsListView absListView, int i, int i2, int i3) {
                 if (actionbar != null) {
                     if (listView.getFirstVisiblePosition() > 0) {
-                        if (listView.getFirstVisiblePosition() < vPstition){
+                        if (listView.getFirstVisiblePosition() < vPstition) {
                             actionbar.show();
+                            if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.INVISIBLE)) {
+                                imageButton.startAnimation(translateAnimationUp);
+                            }
+
                         } else if (listView.getFirstVisiblePosition() != vPstition) {
                             actionbar.hide();
+                            if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.VISIBLE)) {
+                                imageButton.startAnimation(translateAnimationDown);
+                            }
                         }
                     } else {
                         actionbar.show();
