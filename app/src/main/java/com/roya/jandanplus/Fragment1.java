@@ -143,6 +143,9 @@ public class Fragment1 extends ListFragment {
                         }
                     } else {
                         actionbar.show();
+                        if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.INVISIBLE)) {
+                            imageButton.startAnimation(translateAnimationUp);
+                        }
                     }
                     vPstition = listView.getFirstVisiblePosition();
                 }
