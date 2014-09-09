@@ -77,6 +77,7 @@ public class Fragment1 extends ListFragment {
         translateAnimationUp.setFillAfter(true);
 
         final boolean[] animationIsNotRuning = {true};
+
         translateAnimationDown.setAnimationListener(new Animation.AnimationListener() {
              @Override
              public void onAnimationStart(Animation animation) {
