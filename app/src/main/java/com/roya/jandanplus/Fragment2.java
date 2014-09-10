@@ -44,9 +44,10 @@ public class Fragment2 extends Fragment{
             if(button1  == null) { button1 = (Button)activity.findViewById(R.id.button1); }
             if(button2  == null) { button2 = (Button)activity.findViewById(R.id.button2); }
             if(button3  == null) { button3 = (Button)activity.findViewById(R.id.button3); }
-            button2.setTextColor(Color.parseColor("#fabf3d"));
+            button2.setTextColor(Color.parseColor("#fdbc40"));
             button3.setTextColor(Color.parseColor("#a4a4a4"));
             button1.setTextColor(Color.parseColor("#a4a4a4"));
+            getActivity().getActionBar().show();
         } else { }
     }
 }

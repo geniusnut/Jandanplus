@@ -2,27 +2,21 @@ package com.roya.jandanplus;
 
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
-import android.support.v4.view.MotionEventCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,9 +49,13 @@ public class Fragment1 extends ListFragment {
         final ImageButton imageButton = (ImageButton) getActivity().findViewById(R.id.imageButton);
         final float d = getActivity().getResources().getDisplayMetrics().density;
 
+        //添加空白顶部区域
+        LayoutInflater lif = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View headerView = lif.inflate(R.layout.header_view, null);
+        getListView().addHeaderView(headerView);
+
+        //初始化浮动按钮
         imageButton.setAlpha((float)0.8);
-
-
 
         final TranslateAnimation translateAnimationDown = new TranslateAnimation(
                 Animation.ABSOLUTE, 0f,
@@ -168,16 +166,18 @@ public class Fragment1 extends ListFragment {
 
         Map<String, Object> item = new HashMap<String, Object>();
         for (int i = 0; i < 20; i++){
-            item.put("image", R.drawable.loading);
-            item.put("title", "Title");
-            item.put("by", "roya");
-            item.put("cont","✉"+"17");
+            item.put("image", R.drawable.ks95);
+            item.put("title", "室内空气污染不容小觑");
+            item.put("by", "keep_beating @ 健康 , 1 hour ago");
+            item.put("cont","12");
             items.add(item);
         }
 
-        setListAdapter(new SimpleAdapter(getActivity(),items,R.layout.fragment1_item,
-                new String[] { "image", "title", "by", "cont"},
-                new int[] { R.id.image,R.id.title, R.id.by, R.id.cont} ));
+
+
+        setListAdapter(new SimpleAdapter(getActivity(), items, R.layout.fragment1_item,
+                new String[]{"image", "title", "by", "cont"},
+                new int[]{R.id.image, R.id.title, R.id.by, R.id.cont}));
     }
 
     @Override
@@ -188,9 +188,10 @@ public class Fragment1 extends ListFragment {
             if(button1  == null) { button1 = (Button)activity.findViewById(R.id.button1); }
             if(button2  == null) { button2 = (Button)activity.findViewById(R.id.button2); }
             if(button3  == null) { button3 = (Button)activity.findViewById(R.id.button3); }
-            button1.setTextColor(Color.parseColor("#fabf3d"));
+            button1.setTextColor(Color.parseColor("#fdbc40"));
             button3.setTextColor(Color.parseColor("#a4a4a4"));
             button2.setTextColor(Color.parseColor("#a4a4a4"));
+            getActivity().getActionBar().show();
         } else { }
     }
 }

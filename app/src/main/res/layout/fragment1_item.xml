@@ -5,18 +5,17 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingLeft="12dp"
-    android:paddingRight="12dp"
-    android:paddingTop="6dp"
-    android:paddingBottom="6dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+
     >
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:paddingBottom="4dp"
         android:background="@drawable/edbtc"
         >
 
@@ -24,9 +23,43 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#00ffffff">
-            <ImageView
+            android:background="#ffffff"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="updater - flag"
+                    android:textColor="#9fa3a7"
+                    android:textSize="6pt"
+                    android:id="@+id/by"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="17"
+                    android:id="@+id/cont"
+                    android:textSize="8pt"
+                    android:textColor="#9fa3a7"
+                    android:textStyle="italic"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+
+            <ImageView
+                android:layout_width="fill_parent"
                 android:layout_height="180dp"
                 android:scaleType="centerCrop"
                 android:id="@+id/image"
@@ -35,40 +68,22 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TITLE"
+                android:text="标题"
                 android:textSize="9pt"
-                android:textColor="#3f484f"
+                android:textColor="#2f383f"
                 android:id="@+id/title"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"/>
+                android:paddingTop="10dp"/>
 
-
-            <RelativeLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp">
+                android:layout_height="wrap_content"
+                android:text="图片来源：Flickr 只要想到两极冰川融化，迈阿密可能最终会被淹没这样的事，人们似乎很容易忽略一种最直接威胁到人体健康的环境问题，而这种问题就发生在我们自己的家里。 据世卫组织(WHO)..."
+                android:textSize="6pt"
+                android:textColor="#3f484f"
+                android:id="@+id/text"
+                android:paddingTop="8dp"
+                android:paddingBottom="12dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="updater - flag"
-                    android:textColor="#9fa3a7"
-                    android:id="@+id/by"
-                    android:layout_gravity="center_horizontal" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="✉17"
-                    android:id="@+id/cont"
-                    android:textColor="#9fa3a7"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-
-            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

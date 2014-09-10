@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fabf3d">
+    android:background="#fdbc40">
 
     <ImageView
         android:src="@drawable/jandan"
@@ -38,7 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/bu"/>
+            android:background="@drawable/bu"
+            android:alpha="0.7"/>
 
         <Button
             android:layout_weight="1"
@@ -55,7 +56,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/bu"/>
+            android:background="@drawable/bu"
+            android:alpha="0.7"/>
 
         <Button
             android:layout_weight="1"
