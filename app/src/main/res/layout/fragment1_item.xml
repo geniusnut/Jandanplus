@@ -27,18 +27,22 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:id="@+id/link"/>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp">
+                android:padding="4dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="updater - flag"
                     android:textColor="#9fa3a7"
-                    android:textSize="6pt"
+                    android:textSize="5pt"
                     android:id="@+id/by"
                     android:layout_gravity="center_horizontal"
                     android:layout_centerVertical="true" />
@@ -49,7 +53,7 @@
                     android:text="17"
                     android:id="@+id/cont"
                     android:textSize="8pt"
-                    android:textColor="#9fa3a7"
+                    android:textColor="#fdbc40"
                     android:textStyle="italic"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
@@ -65,25 +69,30 @@
                 android:id="@+id/image"
                 android:src="@drawable/loading"/>
 
-            <TextView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="标题"
-                android:textSize="9pt"
-                android:textColor="#2f383f"
-                android:id="@+id/title"
-                android:paddingTop="10dp"/>
+                android:orientation="vertical"
+                android:padding="4dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="标题"
+                        android:textSize="10pt"
+                        android:textColor="#30383f"
+                        android:id="@+id/title"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="图片来源：Flickr 只要想到两极冰川融化，迈阿密可能最终会被淹没这样的事，人们似乎很容易忽略一种最直接威胁到人体健康的环境问题，而这种问题就发生在我们自己的家里。 据世卫组织(WHO)..."
-                android:textSize="6pt"
-                android:textColor="#3f484f"
-                android:id="@+id/text"
-                android:paddingTop="8dp"
-                android:paddingBottom="12dp"/>
-
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="图片来源：Flickr 只要想到两极冰川融化，迈阿密可能最终会被淹没这样的事，人们似乎很容易忽略一种最直接威胁到人体健康的环境问题，而这种问题就发生在我们自己的家里。 据世卫组织(WHO)..."
+                        android:textSize="6pt"
+                        android:textColor="#4f585f"
+                        android:id="@+id/text"
+                        android:paddingBottom="12dp"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

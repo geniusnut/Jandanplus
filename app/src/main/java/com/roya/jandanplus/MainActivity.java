@@ -1,30 +1,21 @@
 package com.roya.jandanplus;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends FragmentActivity {
@@ -35,9 +26,9 @@ public class MainActivity extends FragmentActivity {
 
     private ViewPager mPager;
     private ArrayList<Fragment> fragmentList;
-    private Fragment1 mfragment1;
-    private Fragment2 mfragment2;
-    private Fragment3 mfragment3;
+    Fragment1 mfragment1;
+    Fragment2 mfragment2;
+    Fragment3 mfragment3;
 
     private static final int NUM_PAGES = 3;
 

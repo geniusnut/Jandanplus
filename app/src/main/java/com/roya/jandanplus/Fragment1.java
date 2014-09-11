@@ -55,7 +55,7 @@ public class Fragment1 extends ListFragment {
         getListView().addHeaderView(headerView);
 
         //初始化浮动按钮
-        imageButton.setAlpha((float)0.8);
+        //imageButton.setAlpha((float)0.8);
 
         final TranslateAnimation translateAnimationDown = new TranslateAnimation(
                 Animation.ABSOLUTE, 0f,
@@ -164,10 +164,12 @@ public class Fragment1 extends ListFragment {
 
         List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
 
-        Map<String, Object> item = new HashMap<String, Object>();
-        for (int i = 0; i < 20; i++){
-            item.put("image", R.drawable.ks95);
-            item.put("title", "室内空气污染不容小觑");
+
+        for (int i = 0; i < 3; i++){
+            Map<String, Object> item = new HashMap<String, Object>();
+            item.put("link",""+i);
+            item.put("image", R.drawable.loading);
+            item.put("title", "室内空气污染不容小觑"+i);
             item.put("by", "keep_beating @ 健康 , 1 hour ago");
             item.put("cont","12");
             items.add(item);
