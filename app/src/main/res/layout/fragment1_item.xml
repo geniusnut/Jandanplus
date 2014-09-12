@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp">
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -33,15 +34,15 @@
                 android:id="@+id/link"/>
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="4dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="updater - flag"
-                    android:textColor="#9fa3a7"
+                    android:text="updater"
+                    android:textColor="#b3b4b7"
                     android:textSize="5pt"
                     android:id="@+id/by"
                     android:layout_gravity="center_horizontal"
@@ -50,10 +51,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="17"
+                    android:text=" / tag"
+                    android:textColor="#b3b4b7"
+                    android:textSize="5pt"
+                    android:id="@+id/tag"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/by"
+                    android:layout_toEndOf="@+id/by" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
                     android:id="@+id/cont"
                     android:textSize="8pt"
-                    android:textColor="#fdbc40"
+                    android:textColor="#fdc966"
                     android:textStyle="italic"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
@@ -61,37 +74,31 @@
 
             </RelativeLayout>
 
-
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="180dp"
-                android:scaleType="centerCrop"
-                android:id="@+id/image"
-                android:src="@drawable/loading"/>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="4dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="标题"
-                        android:textSize="10pt"
-                        android:textColor="#30383f"
-                        android:id="@+id/title"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"/>
+                android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="图片来源：Flickr 只要想到两极冰川融化，迈阿密可能最终会被淹没这样的事，人们似乎很容易忽略一种最直接威胁到人体健康的环境问题，而这种问题就发生在我们自己的家里。 据世卫组织(WHO)..."
-                        android:textSize="6pt"
-                        android:textColor="#4f585f"
-                        android:id="@+id/text"
-                        android:paddingBottom="12dp"/>
+                <ImageView
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/image"
+                    android:src="@drawable/loading"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="标题"
+                    android:textSize="10pt"
+                    android:textColor="#42454c"
+                    android:id="@+id/title"
+                    android:padding="2dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    />
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

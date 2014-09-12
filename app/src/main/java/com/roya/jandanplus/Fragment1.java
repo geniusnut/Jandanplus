@@ -165,21 +165,29 @@ public class Fragment1 extends ListFragment {
         List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
 
 
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 15; i++){
             Map<String, Object> item = new HashMap<String, Object>();
             item.put("link",""+i);
             item.put("image", R.drawable.loading);
             item.put("title", "室内空气污染不容小觑"+i);
-            item.put("by", "keep_beating @ 健康 , 1 hour ago");
+            item.put("by", "keep_beating");
             item.put("cont","12");
+            item.put("tag"," / 健康");
             items.add(item);
         }
 
+        final JandanParser jandanParser = new JandanParser(getActivity().getApplicationContext());
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                jandanParser.JandanHomePage(1);
+            }
+        }).start();
 
         setListAdapter(new SimpleAdapter(getActivity(), items, R.layout.fragment1_item,
-                new String[]{"image", "title", "by", "cont"},
-                new int[]{R.id.image, R.id.title, R.id.by, R.id.cont}));
+                new String[]{"link","image", "title", "by","tag", "cont"},
+                new int[]{R.id.link,R.id.image, R.id.title, R.id.by,R.id.tag, R.id.cont}));
     }
 
     @Override
