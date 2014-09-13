@@ -21,7 +21,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/imageView5"
-        android:background="#fefefe">
+        android:background="#f9f9f9">
 
 
         <Button

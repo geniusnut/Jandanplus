@@ -2,16 +2,21 @@ package com.roya.jandanplus;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +30,7 @@ public class JandanParser {
     final Context context;
 
     Document document = null;
-    final String URL  = "http://i.jandan.net/page/";
+    final String Home_URL = "http://i.jandan.net/page/";
 
     public JandanParser(Context context){
         this.context = context;
@@ -36,7 +41,7 @@ public class JandanParser {
         List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
 
         try {
-            document = Jsoup.connect(URL+Page).timeout(5000).get();
+            document = Jsoup.connect(Home_URL +Page).timeout(5000).get();
         }
         catch (IOException e){
             Log.e(TAG,e.toString());
@@ -73,6 +78,8 @@ public class JandanParser {
             matcher = pattern.matcher(indexs.toString());
             if (matcher.find()){
                 item.put("cont",matcher.group());
+            }else {
+                item.put("cont","0");
             }
 
             //by
@@ -86,13 +93,40 @@ public class JandanParser {
             pattern = Pattern.compile(">(.*)</a>");
             matcher = pattern.matcher(indexs.toString());
             if (matcher.find()){
-                item.put("tag"," / "+matcher.group().substring(1,matcher.group().length()-4));
+                item.put("tag","#"+matcher.group().substring(1,matcher.group().length()-4));
             }
 
-            Log.e(TAG,item.toString());
+            //image
+            Elements thumb_s = i.getElementsByClass("thumb_s");
+            pattern = Pattern.compile("src(.*)\"");
+            matcher = pattern.matcher(thumb_s.toString());
+            if (matcher.find()) {
+
+                item.put("image", getBitMap(matcher.group().substring(5,matcher.group().length()-1)));
+            }
+
+            //add item to items
+            if(item.get("tag") != null) {
+                items.add(item);
+            }
         }
-
-
+        //Log.e(TAG,items.toString());
         return items;
     }
+
+
+    public Bitmap getBitMap(String strUrl) {
+        Bitmap bitmap = null;
+        InputStream is = null;
+        try {
+            URL url = new URL(strUrl);
+            URLConnection conn = url.openConnection();
+            is = conn.getInputStream();
+        } catch (IOException e) {
+            return null;
+        }
+        bitmap = BitmapFactory.decodeStream(is);
+        return bitmap;
+    }
+
 }

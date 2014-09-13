@@ -3,7 +3,9 @@ package com.roya.jandanplus;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
@@ -15,11 +17,11 @@ import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +31,7 @@ public class Fragment1 extends ListFragment {
     private Button button1;
     private Button button2;
     private Button button3;
-
+    List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +55,7 @@ public class Fragment1 extends ListFragment {
         LayoutInflater lif = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View headerView = lif.inflate(R.layout.header_view, null);
         getListView().addHeaderView(headerView);
+
 
         //初始化浮动按钮
         //imageButton.setAlpha((float)0.8);
@@ -162,32 +165,43 @@ public class Fragment1 extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
 
+        SimpleAdapter adapter = new SimpleAdapter(getActivity(), items, R.layout.fragment1_item,
+                new String[]{"link", "image", "title", "by", "tag", "cont"},
+                new int[]{R.id.link, R.id.image, R.id.title, R.id.by, R.id.tag, R.id.cont});
+        adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(
+                    View view,
+                    Object data,
+                    String textRepresentation) {
+                if ((view instanceof ImageView) && (data instanceof Bitmap)) {
+                    ImageView imageView = (ImageView) view;
+                    Bitmap bmp = (Bitmap) data;
+                    imageView.setImageBitmap(bmp);
+                    return true;
+                }
+                return false;
+            }
+        });
+        setListAdapter(adapter);
 
-        for (int i = 0; i < 15; i++){
-            Map<String, Object> item = new HashMap<String, Object>();
-            item.put("link",""+i);
-            item.put("image", R.drawable.loading);
-            item.put("title", "室内空气污染不容小觑"+i);
-            item.put("by", "keep_beating");
-            item.put("cont","12");
-            item.put("tag"," / 健康");
-            items.add(item);
+        new listviewSeter().execute(1);
+    }
+
+    private class listviewSeter extends AsyncTask<Integer, Void, List<Map<String, Object>>>{
+        @Override
+        protected List<Map<String, Object>> doInBackground(Integer... page) {
+            final JandanParser jandanParser = new JandanParser(getActivity().getApplicationContext());
+
+            return jandanParser.JandanHomePage(page[0]);
         }
 
-        final JandanParser jandanParser = new JandanParser(getActivity().getApplicationContext());
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                jandanParser.JandanHomePage(1);
-            }
-        }).start();
-
-        setListAdapter(new SimpleAdapter(getActivity(), items, R.layout.fragment1_item,
-                new String[]{"link","image", "title", "by","tag", "cont"},
-                new int[]{R.id.link,R.id.image, R.id.title, R.id.by,R.id.tag, R.id.cont}));
+        protected void onPostExecute(List<Map<String, Object>> result) {
+            SimpleAdapter adapter = (SimpleAdapter)getListAdapter();
+            items.addAll(result);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
