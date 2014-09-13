@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,10 @@ public class Fragment1 extends ListFragment {
     private Button button2;
     private Button button3;
     List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
-
+    JandanParser jandanParser;
+    SimpleAdapter adapter;
+    int Jandanpage = 0;
+    boolean JandanIsParseing = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,8 +59,8 @@ public class Fragment1 extends ListFragment {
         //添加空白顶部区域
         LayoutInflater lif = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View headerView = lif.inflate(R.layout.header_view, null);
-        getListView().addHeaderView(headerView);
-
+        listView.addHeaderView(headerView);
+        listView.addFooterView(headerView);
 
         //初始化浮动按钮
         //imageButton.setAlpha((float)0.8);
@@ -142,6 +147,11 @@ public class Fragment1 extends ListFragment {
                             if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.VISIBLE)) {
                                 imageButton.startAnimation(translateAnimationDown);
                             }
+                            if(adapter.getCount() - 6 <= listView.getFirstVisiblePosition()){
+                                if (!JandanIsParseing) {
+                                    new listviewSeter().execute(++Jandanpage);
+                                }
+                            }
                         }
                     } else {
                         actionbar.show();
@@ -166,7 +176,7 @@ public class Fragment1 extends ListFragment {
         super.onCreate(savedInstanceState);
 
 
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), items, R.layout.fragment1_item,
+        adapter = new SimpleAdapter(getActivity(), items, R.layout.fragment1_item,
                 new String[]{"link", "image", "title", "by", "tag", "cont"},
                 new int[]{R.id.link, R.id.image, R.id.title, R.id.by, R.id.tag, R.id.cont});
         adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
@@ -186,21 +196,23 @@ public class Fragment1 extends ListFragment {
         });
         setListAdapter(adapter);
 
-        new listviewSeter().execute(1);
+        jandanParser = new JandanParser(getActivity().getApplicationContext());
+        new listviewSeter().execute(++Jandanpage);
     }
 
     private class listviewSeter extends AsyncTask<Integer, Void, List<Map<String, Object>>>{
         @Override
         protected List<Map<String, Object>> doInBackground(Integer... page) {
-            final JandanParser jandanParser = new JandanParser(getActivity().getApplicationContext());
 
+            JandanIsParseing = true;
             return jandanParser.JandanHomePage(page[0]);
         }
 
         protected void onPostExecute(List<Map<String, Object>> result) {
-            SimpleAdapter adapter = (SimpleAdapter)getListAdapter();
+
             items.addAll(result);
             adapter.notifyDataSetChanged();
+            JandanIsParseing = false;
         }
     }
 

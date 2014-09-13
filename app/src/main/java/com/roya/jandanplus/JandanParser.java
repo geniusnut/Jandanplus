@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -28,7 +29,6 @@ public class JandanParser {
     final String TAG = "JandanParser";
 
     final Context context;
-
     Document document = null;
     final String Home_URL = "http://i.jandan.net/page/";
 
@@ -38,6 +38,7 @@ public class JandanParser {
 
     public List<Map<String, Object>> JandanHomePage(int Page){
 
+        //Log.e("HOMEPAGE",""+Page);
         List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
 
         try {
@@ -52,7 +53,7 @@ public class JandanParser {
         Elements posts = document.getElementsByClass("post");
 
         for(Element i:posts){
-            Map<String, Object> item = new HashMap<String, Object>();
+            final Map<String, Object> item = new HashMap<String, Object>();
 
             Elements thetitle = i.getElementsByClass("thetitle");
 
@@ -86,7 +87,7 @@ public class JandanParser {
             pattern = Pattern.compile("<b>(.*)</b>");
             matcher = pattern.matcher(indexs.toString());
             if (matcher.find()){
-                item.put("by",matcher.group().substring(3,matcher.group().length()-4));
+                item.put("by","by "+matcher.group().substring(3,matcher.group().length()-4));
             }
 
             //tag
@@ -100,9 +101,19 @@ public class JandanParser {
             Elements thumb_s = i.getElementsByClass("thumb_s");
             pattern = Pattern.compile("src(.*)\"");
             matcher = pattern.matcher(thumb_s.toString());
+
             if (matcher.find()) {
 
-                item.put("image", getBitMap(matcher.group().substring(5,matcher.group().length()-1)));
+                item.put("image",R.drawable.loading);
+
+                final Matcher finalMatcher = matcher;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        item.put("image", getBitMap(finalMatcher.group().substring(5, finalMatcher.group().length()-1)));
+                    }
+                }).start();
+
             }
 
             //add item to items
@@ -115,7 +126,7 @@ public class JandanParser {
     }
 
 
-    public Bitmap getBitMap(String strUrl) {
+    private Bitmap getBitMap(String strUrl) {
         Bitmap bitmap = null;
         InputStream is = null;
         try {

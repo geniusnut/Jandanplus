@@ -68,8 +68,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="86dp"
-                    android:layout_height="86dp"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
                     android:scaleType="centerCrop"
                     android:id="@+id/image"
                     android:src="@drawable/loading"/>
@@ -96,7 +96,7 @@
                     android:textColor="#b3b4b7"
                     android:textSize="5pt"
                     android:id="@+id/by"
-                    android:paddingTop="6dp"
+                    android:paddingTop="4dp"
                     android:paddingLeft="11dp"
                     android:paddingRight="11dp"
                     android:layout_gravity="center_horizontal"
