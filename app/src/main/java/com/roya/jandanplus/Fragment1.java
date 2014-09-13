@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -62,9 +63,14 @@ public class Fragment1 extends ListFragment {
         listView.addHeaderView(headerView);
         listView.addFooterView(headerView);
 
-        //初始化浮动按钮
-        //imageButton.setAlpha((float)0.8);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.e("onItemClick", view.toString() + "|" + i + "|" + l);
+            }
+        });
 
+        //初始化浮动按钮
         final TranslateAnimation translateAnimationDown = new TranslateAnimation(
                 Animation.ABSOLUTE, 0f,
                 Animation.ABSOLUTE, 0f,
@@ -198,6 +204,24 @@ public class Fragment1 extends ListFragment {
 
         jandanParser = new JandanParser(getActivity().getApplicationContext());
         new listviewSeter().execute(++Jandanpage);
+
+        jandanParser.setOnImageChangedlistener(new JandanParser.OnImageChangedlistener() {
+            @Override
+            public void OnImageChanged() {
+                new notifyDataSetChanged().execute();
+            }
+        });
+
+    }
+
+    private class notifyDataSetChanged extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+        protected void onPostExecute(Void voids){
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private class listviewSeter extends AsyncTask<Integer, Void, List<Map<String, Object>>>{

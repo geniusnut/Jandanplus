@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +34,14 @@ public class JandanParser {
     final Context context;
     Document document = null;
     final String Home_URL = "http://i.jandan.net/page/";
+    OnImageChangedlistener listener;
+
+    public interface OnImageChangedlistener{
+        void OnImageChanged();
+    }
+    public void setOnImageChangedlistener(OnImageChangedlistener onImageChangedlistener){
+        this.listener = onImageChangedlistener;
+    }
 
     public JandanParser(Context context){
         this.context = context;
@@ -111,6 +122,7 @@ public class JandanParser {
                     @Override
                     public void run() {
                         item.put("image", getBitMap(finalMatcher.group().substring(5, finalMatcher.group().length()-1)));
+                        listener.OnImageChanged();
                     }
                 }).start();
 
