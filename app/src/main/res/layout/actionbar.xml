@@ -7,7 +7,7 @@
 
     <ImageView
         android:src="@drawable/jandan"
-        android:layout_width="140dp"
+        android:layout_width="146dp"
         android:layout_height="48dp"
         android:id="@+id/imageView5"
         android:paddingTop="8dp"
@@ -16,59 +16,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/imageView5"
-        android:background="#f9f9f9">
 
-
-        <Button
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="首页"
-            android:id="@+id/button1"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:textColor="#a4a4a4"
-            android:background="@null"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/bu"
-            android:alpha="0.7"/>
-
-        <Button
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="无聊图"
-            android:id="@+id/button2"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:textColor="#a4a4a4"
-            android:background="@null"/>
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/bu"
-            android:alpha="0.7"/>
-
-        <Button
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="OOXX"
-            android:id="@+id/button3"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:textColor="#a4a4a4"
-            android:background="@null"/>
-
-    </LinearLayout>
 
 </RelativeLayout>

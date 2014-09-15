@@ -29,6 +29,7 @@ public class MainActivity extends FragmentActivity {
     Fragment1 mfragment1;
     Fragment2 mfragment2;
     Fragment3 mfragment3;
+    ActionLayout al;
 
     private static final int NUM_PAGES = 3;
 
@@ -90,6 +91,8 @@ public class MainActivity extends FragmentActivity {
 
 
     private void setActionBar() {
+
+
         LayoutInflater inflater = (LayoutInflater) getActionBar()
                 .getThemedContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 

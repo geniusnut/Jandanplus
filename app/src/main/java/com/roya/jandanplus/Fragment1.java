@@ -3,6 +3,7 @@ package com.roya.jandanplus;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -22,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -39,6 +42,10 @@ public class Fragment1 extends ListFragment {
     SimpleAdapter adapter;
     int Jandanpage = 0;
     boolean JandanIsParseing = false;
+    ImageButton imageButton;
+    RotateAnimation rotateAnimation;
+    ActionLayout al;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,19 +61,29 @@ public class Fragment1 extends ListFragment {
 
         final ListView listView = getListView();
         final ActionBar actionbar = getActivity().getActionBar();
-        final ImageButton imageButton = (ImageButton) getActivity().findViewById(R.id.imageButton);
+        imageButton = (ImageButton) getActivity().findViewById(R.id.imageButton);
         final float d = getActivity().getResources().getDisplayMetrics().density;
 
-        //添加空白顶部区域
-        LayoutInflater lif = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View headerView = lif.inflate(R.layout.header_view, null);
-        listView.addHeaderView(headerView);
-        listView.addFooterView(headerView);
+        al = (ActionLayout) getActivity().findViewById(R.id.action_layout);
+        al.setViewHeight(96);
+        al.setAnimationDuration(200);
+        al.setHiddenOrientation(al.HIDDEN_TOP);
 
+        //添加空白区域
+        LayoutInflater lif = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //View headerView = lif.inflate(R.layout.header_view, null);
+        listView.addHeaderView(lif.inflate(R.layout.header_view, null));
+        listView.addFooterView(lif.inflate(R.layout.footer_view, null));
+
+        //处理点击
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.e("onItemClick", view.toString() + "|" + i + "|" + l);
+                TextView link = (TextView) view.findViewById(R.id.link);
+                String a = link.getText().toString();
+                Log.e("onItemClick", a);
+                Intent intent = new Intent(getActivity(),PostActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -75,18 +92,34 @@ public class Fragment1 extends ListFragment {
                 Animation.ABSOLUTE, 0f,
                 Animation.ABSOLUTE, 0f,
                 Animation.ABSOLUTE, 0f,
-                Animation.ABSOLUTE, 88f * d);
-        translateAnimationDown.setDuration(300);
+                Animation.ABSOLUTE, 92f * d);
+        translateAnimationDown.setDuration(250);
 
         final TranslateAnimation translateAnimationUp = new TranslateAnimation(
                 Animation.ABSOLUTE, 0f,
                 Animation.ABSOLUTE, 0f,
-                Animation.ABSOLUTE, 88f * d,
+                Animation.ABSOLUTE, 92f * d,
                 Animation.ABSOLUTE, 0f);
-        translateAnimationUp.setDuration(300);
+        translateAnimationUp.setDuration(250);
 
         translateAnimationDown.setFillAfter(true);
         translateAnimationUp.setFillAfter(true);
+
+        rotateAnimation = new RotateAnimation(0, 1080,Animation.RELATIVE_TO_SELF+36*d,Animation.RELATIVE_TO_SELF+36*d);
+        rotateAnimation.setDuration(2500);
+        imageButton.startAnimation(rotateAnimation);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageButton.startAnimation(rotateAnimation);
+                Jandanpage = 0;
+                if (!listView.isStackFromBottom()) {
+                    listView.setStackFromBottom(true);
+                }
+                listView.setStackFromBottom(false);
+                new listviewSeter().execute(++Jandanpage);
+            }
+        });
 
         final boolean[] animationIsNotRuning = {true};
 
@@ -146,14 +179,16 @@ public class Fragment1 extends ListFragment {
                             actionbar.show();
                             if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.INVISIBLE)) {
                                 imageButton.startAnimation(translateAnimationUp);
+                                al.show();
                             }
 
                         } else if (listView.getFirstVisiblePosition() != vPstition) {
                             actionbar.hide();
                             if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.VISIBLE)) {
                                 imageButton.startAnimation(translateAnimationDown);
+                                al.hide();
                             }
-                            if(adapter.getCount() - 6 <= listView.getFirstVisiblePosition()){
+                            if(adapter.getCount() - 8 <= listView.getFirstVisiblePosition()){
                                 if (!JandanIsParseing) {
                                     new listviewSeter().execute(++Jandanpage);
                                 }
@@ -163,6 +198,7 @@ public class Fragment1 extends ListFragment {
                         actionbar.show();
                         if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.INVISIBLE)) {
                             imageButton.startAnimation(translateAnimationUp);
+                            al.show();
                         }
                     }
                     vPstition = listView.getFirstVisiblePosition();
@@ -204,7 +240,6 @@ public class Fragment1 extends ListFragment {
 
         jandanParser = new JandanParser(getActivity().getApplicationContext());
         new listviewSeter().execute(++Jandanpage);
-
         jandanParser.setOnImageChangedlistener(new JandanParser.OnImageChangedlistener() {
             @Override
             public void OnImageChanged() {
@@ -227,13 +262,13 @@ public class Fragment1 extends ListFragment {
     private class listviewSeter extends AsyncTask<Integer, Void, List<Map<String, Object>>>{
         @Override
         protected List<Map<String, Object>> doInBackground(Integer... page) {
-
             JandanIsParseing = true;
+            if (page[0] == 1){
+                items.clear();
+            }
             return jandanParser.JandanHomePage(page[0]);
         }
-
         protected void onPostExecute(List<Map<String, Object>> result) {
-
             items.addAll(result);
             adapter.notifyDataSetChanged();
             JandanIsParseing = false;
@@ -248,9 +283,9 @@ public class Fragment1 extends ListFragment {
             if(button1  == null) { button1 = (Button)activity.findViewById(R.id.button1); }
             if(button2  == null) { button2 = (Button)activity.findViewById(R.id.button2); }
             if(button3  == null) { button3 = (Button)activity.findViewById(R.id.button3); }
-            button1.setTextColor(Color.parseColor("#fdbc40"));
-            button3.setTextColor(Color.parseColor("#a4a4a4"));
-            button2.setTextColor(Color.parseColor("#a4a4a4"));
+            button1.setTextColor(Color.parseColor("#ffffffff"));
+            button3.setTextColor(Color.parseColor("#88ffffff"));
+            button2.setTextColor(Color.parseColor("#88ffffff"));
             getActivity().getActionBar().show();
         } else { }
     }

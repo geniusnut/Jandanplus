@@ -58,7 +58,7 @@ public class JandanParser {
         catch (IOException e){
             Log.e(TAG,e.toString());
             Toast.makeText(context,"无法连接到服务器，请稍后再试",Toast.LENGTH_SHORT).show();
-            return null;
+            return items;
         }
 
         Elements posts = document.getElementsByClass("post");
@@ -98,14 +98,14 @@ public class JandanParser {
             pattern = Pattern.compile("<b>(.*)</b>");
             matcher = pattern.matcher(indexs.toString());
             if (matcher.find()){
-                item.put("by","by "+matcher.group().substring(3,matcher.group().length()-4));
+                item.put("by",matcher.group().substring(3,matcher.group().length()-4));
             }
 
             //tag
             pattern = Pattern.compile(">(.*)</a>");
             matcher = pattern.matcher(indexs.toString());
             if (matcher.find()){
-                item.put("tag","#"+matcher.group().substring(1,matcher.group().length()-4));
+                item.put("tag",matcher.group().substring(1,matcher.group().length()-4));
             }
 
             //image
@@ -121,7 +121,10 @@ public class JandanParser {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        item.put("image", getBitMap(finalMatcher.group().substring(5, finalMatcher.group().length()-1)));
+                        item.put("image", getBitMap(
+                                finalMatcher.group()
+                                        .substring(5, finalMatcher.group().length()-1)
+                                        .replaceAll("square","small")));
                         listener.OnImageChanged();
                     }
                 }).start();
