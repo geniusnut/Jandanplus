@@ -53,9 +53,9 @@ public class JandanParser {
         List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
 
         try {
-            document = Jsoup.connect(Home_URL +Page).timeout(5000).get();
+            document = Jsoup.connect(Home_URL +Page).timeout(2500).get();
         }
-        catch (IOException e){
+        catch (Exception e){
             Log.e(TAG,e.toString());
             Toast.makeText(context,"无法连接到服务器，请稍后再试",Toast.LENGTH_SHORT).show();
             return items;

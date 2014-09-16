@@ -81,8 +81,8 @@ public class Fragment1 extends ListFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView link = (TextView) view.findViewById(R.id.link);
                 String a = link.getText().toString();
-                Log.e("onItemClick", a);
                 Intent intent = new Intent(getActivity(),PostActivity.class);
+                intent.putExtra("link",a);
                 startActivity(intent);
             }
         });
@@ -105,8 +105,8 @@ public class Fragment1 extends ListFragment {
         translateAnimationDown.setFillAfter(true);
         translateAnimationUp.setFillAfter(true);
 
-        rotateAnimation = new RotateAnimation(0, 1080,Animation.RELATIVE_TO_SELF+36*d,Animation.RELATIVE_TO_SELF+36*d);
-        rotateAnimation.setDuration(2500);
+        rotateAnimation = new RotateAnimation(0, 2160,Animation.RELATIVE_TO_SELF+36*d,Animation.RELATIVE_TO_SELF+36*d);
+        rotateAnimation.setDuration(1800);
         imageButton.startAnimation(rotateAnimation);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,12 +263,14 @@ public class Fragment1 extends ListFragment {
         @Override
         protected List<Map<String, Object>> doInBackground(Integer... page) {
             JandanIsParseing = true;
+            List<Map<String, Object>> list = jandanParser.JandanHomePage(page[0]);
             if (page[0] == 1){
                 items.clear();
             }
-            return jandanParser.JandanHomePage(page[0]);
+            return list;
         }
         protected void onPostExecute(List<Map<String, Object>> result) {
+
             items.addAll(result);
             adapter.notifyDataSetChanged();
             JandanIsParseing = false;
