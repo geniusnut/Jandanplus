@@ -57,7 +57,7 @@ public class JandanParser {
         }
         catch (Exception e){
             Log.e(TAG,e.toString());
-            Toast.makeText(context,"无法连接到服务器，请稍后再试",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,"无法连接到服务器，请稍后再试",Toast.LENGTH_SHORT).show();
             return items;
         }
 
@@ -86,10 +86,10 @@ public class JandanParser {
             Elements indexs = i.getElementsByClass("indexs");
 
             //cont
-            pattern = Pattern.compile("[\\s].[0-9]");
+            pattern = Pattern.compile(" [0-9]* ");
             matcher = pattern.matcher(indexs.toString());
             if (matcher.find()){
-                item.put("cont",matcher.group());
+                item.put("cont",matcher.group().substring(1,matcher.group().length()-1));
             }else {
                 item.put("cont","0");
             }
@@ -102,10 +102,12 @@ public class JandanParser {
             }
 
             //tag
-            pattern = Pattern.compile(">(.*)</a>");
+            pattern = Pattern.compile("\"tag\">(.*)</a>");
             matcher = pattern.matcher(indexs.toString());
             if (matcher.find()){
-                item.put("tag",matcher.group().substring(1,matcher.group().length()-4));
+                item.put("tag",matcher.group().substring(6,matcher.group().length()-4));
+            }else {
+                item.put("tag","");
             }
 
             //image

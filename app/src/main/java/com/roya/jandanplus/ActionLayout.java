@@ -37,16 +37,13 @@ public class ActionLayout extends RelativeLayout{
     public ActionLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-
         this.dpi = context.getResources().getDisplayMetrics().density;
     }
 
     public ActionLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.context = context;
-
         this.dpi = context.getResources().getDisplayMetrics().density;
-
     }
 
     public void setAnimationDuration(long millisecond){

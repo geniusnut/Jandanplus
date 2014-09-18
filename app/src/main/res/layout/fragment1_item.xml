@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edbtc"
+        android:background="@drawable/edbt_new"
         >
 
         <LinearLayout
@@ -80,7 +80,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="标题"
+                        android:text="Title"
                         android:textSize="8pt"
                         android:textColor="#42454c"
                         android:id="@+id/title"

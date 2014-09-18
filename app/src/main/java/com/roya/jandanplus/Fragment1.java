@@ -80,9 +80,15 @@ public class Fragment1 extends ListFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView link = (TextView) view.findViewById(R.id.link);
-                String a = link.getText().toString();
+                TextView title = (TextView) view.findViewById(R.id.title);
+                TextView comm = (TextView)view.findViewById(R.id.cont);
+                String acomm = comm.getText().toString();
+                String atitle = title.getText().toString();
+                String alink = link.getText().toString();
                 Intent intent = new Intent(getActivity(),PostActivity.class);
-                intent.putExtra("link",a);
+                intent.putExtra("link",alink);
+                intent.putExtra("comm",acomm);
+                intent.putExtra(Intent.EXTRA_TITLE,atitle);
                 startActivity(intent);
             }
         });
@@ -105,7 +111,7 @@ public class Fragment1 extends ListFragment {
         translateAnimationDown.setFillAfter(true);
         translateAnimationUp.setFillAfter(true);
 
-        rotateAnimation = new RotateAnimation(0, 2160,Animation.RELATIVE_TO_SELF+36*d,Animation.RELATIVE_TO_SELF+36*d);
+        rotateAnimation = new RotateAnimation(0, 1440,Animation.RELATIVE_TO_SELF+36*d,Animation.RELATIVE_TO_SELF+36*d);
         rotateAnimation.setDuration(1800);
         imageButton.startAnimation(rotateAnimation);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -268,9 +274,12 @@ public class Fragment1 extends ListFragment {
                 items.clear();
             }
             return list;
+
         }
         protected void onPostExecute(List<Map<String, Object>> result) {
-
+            if(result.isEmpty()){
+                Toast.makeText(getActivity(), "无法连接到服务器，请稍后再试", Toast.LENGTH_SHORT).show();
+            }
             items.addAll(result);
             adapter.notifyDataSetChanged();
             JandanIsParseing = false;
