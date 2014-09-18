@@ -134,7 +134,7 @@ public class JandanParser {
             }
 
             //add item to items
-            if(item.get("tag") != null) {
+            if(item.get("title") != null) {
                 items.add(item);
             }
         }
