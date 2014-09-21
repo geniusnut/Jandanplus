@@ -34,6 +34,7 @@ public class JandanParser {
     final Context context;
     Document document = null;
     final String Home_URL = "http://i.jandan.net/page/";
+    final String PIC_URL = "http://i.jandan.net/pic";
     OnImageChangedlistener listener;
 
     public interface OnImageChangedlistener{
@@ -145,6 +146,79 @@ public class JandanParser {
         return items;
     }
 
+    public List<Map<String, Object>> JandanPicPage(int Page){
+
+        List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
+
+        try {
+            document = Jsoup.connect(PIC_URL)
+                    .timeout(2500)
+                    .userAgent("Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Safari/535.19")
+                    .get();
+        }
+        catch (Exception e){
+            Log.e(TAG,e.toString());
+            //Toast.makeText(context,"无法连接到服务器，请稍后再试",Toast.LENGTH_SHORT).show();
+            return items;
+        }
+
+        Elements posts = document.select("li");
+
+        for(Element i:posts){
+            final Map<String, Object> item = new HashMap<String, Object>();
+
+            //id
+            Pattern pattern = Pattern.compile("comment-[0-9]*");
+            Matcher matcher = pattern.matcher(i.toString());
+            if (matcher.find()){
+                item.put("id",matcher.group().substring(8));
+                //Log.e(TAG,item.get("id").toString());
+            }
+
+            //updater
+            pattern = Pattern.compile("<b>(.*)</b>");
+            matcher = pattern.matcher(i.toString());
+            if (matcher.find()){
+                item.put("updater",matcher.group().substring(3,matcher.group().length()-4));
+
+            }
+
+            Elements time = i.getElementsByClass("time");
+            //time
+            pattern = Pattern.compile("[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]");
+            matcher = pattern.matcher(time.toString());
+            if (matcher.find()){
+                item.put("time",matcher.group());
+            }
+
+            //text
+            pattern = Pattern.compile("<p>(.*)<br");
+            matcher = pattern.matcher(i.toString());
+            if (matcher.find()){
+                item.put("text",matcher.group().substring(3, matcher.group().length() - 3));
+            }
+
+            //ooxx
+            if (item.get("id") != null) {
+                pattern = Pattern.compile("id=\"cos_support-" + item.get("id").toString() + "\">(.*)</span>");
+                matcher = pattern.matcher(i.toString());
+                if (matcher.find()) {
+                    item.put("oo", matcher.group().substring(25, matcher.group().length() - 7));
+                }
+                pattern = Pattern.compile("id=\"cos_unsupport-" + item.get("id").toString() + "\">(.*)</span>");
+                matcher = pattern.matcher(i.toString());
+                if (matcher.find()) {
+                    item.put("xx", matcher.group().substring(27, matcher.group().length() - 7));
+                }
+            }
+
+            //add item to items
+            if(item.get("updater") != null) {
+                items.add(item);
+            }
+        }
+        return items;
+    }
 
     private Bitmap getBitMap(String strUrl) {
         Bitmap bitmap = null;

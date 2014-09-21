@@ -28,12 +28,14 @@
                 android:textStyle="bold"
                 android:textColor="#828384"
                 android:text="updater"
+                android:id="@+id/updater"
                 />
             <TextView
                 android:layout_marginLeft="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="time"
+                android:id="@+id/time"
                 android:textColor="#b3b4b7"
                 />
             </LinearLayout>
@@ -42,9 +44,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:textSize="9pt"
+            android:textSize="8pt"
             android:textColor="#434343"
             android:text="some things"
+            android:id="@+id/text"
             />
         <ImageView
             android:layout_width="match_parent"
@@ -76,6 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="01"
+                    android:id="@+id/xx"
                     android:textColor="#ffffff"/>
             </LinearLayout>
             <LinearLayout
@@ -94,6 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="01"
+                    android:id="@+id/oo"
                     android:textColor="#ffffff"/>
             </LinearLayout>
             <LinearLayout
@@ -112,9 +117,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="01"
+                    android:id="@+id/comm"
                     android:textColor="#ffffff"/>
             </LinearLayout>
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/imagelink"/>
     </LinearLayout>
 </LinearLayout>

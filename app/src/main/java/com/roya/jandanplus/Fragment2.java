@@ -4,6 +4,7 @@ package com.roya.jandanplus;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -30,6 +31,10 @@ public class Fragment2 extends ListFragment {
     private Button button1;
     private Button button2;
     private Button button3;
+
+
+    JandanParser jandanParser;
+    boolean JandanIsParseing = false;
 
     ActionLayout al;
     SimpleAdapter adapter;
@@ -61,16 +66,26 @@ public class Fragment2 extends ListFragment {
         al.setAnimationDuration(200);
         al.setHiddenOrientation(al.HIDDEN_TOP);
 
+        jandanParser = new JandanParser(getActivity().getApplicationContext());
+/*
         Map<String, Object> item = new HashMap<String, Object>();
+        item.put("updater","roya");
+        item.put("time","1-min ago");
+        item.put("text","!!!!!");
         item.put("image",R.drawable.loading);
+        item.put("xx","4");
+        item.put("oo","13");
+        item.put("comm","2");
 
         items.add(item);
         items.add(item);
         items.add(item);
-
+        items.add(item);
+*/
         adapter = new SimpleAdapter(getActivity(), items, R.layout.pics_fm2,
-                new String[]{"link", "image", "title", "by", "tag", "cont"},
-                new int[]{R.id.link, R.id.image, R.id.title, R.id.by, R.id.tag, R.id.cont});
+                new String[]{"updater", "time", "text", "image", "xx", "oo","comm"},
+                new int[]{R.id.updater, R.id.time, R.id.text, R.id.image, R.id.xx, R.id.oo, R.id.comm});
+
         adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(
@@ -88,6 +103,26 @@ public class Fragment2 extends ListFragment {
         });
         setListAdapter(adapter);
 
+        new picSeter().execute(0);
+    }
+
+    private class picSeter extends AsyncTask<Integer, Void, List<Map<String, Object>>> {
+        @Override
+        protected List<Map<String, Object>> doInBackground(Integer... page) {
+            JandanIsParseing = true;
+            List<Map<String, Object>> list = jandanParser.JandanPicPage(page[0]);
+
+            return list;
+
+        }
+        protected void onPostExecute(List<Map<String, Object>> result) {
+            if(result.isEmpty()){
+                Toast.makeText(getActivity(), "无法连接到服务器，请稍后再试", Toast.LENGTH_SHORT).show();
+            }
+            items.addAll(result);
+            adapter.notifyDataSetChanged();
+            JandanIsParseing = false;
+        }
     }
 
     @Override
