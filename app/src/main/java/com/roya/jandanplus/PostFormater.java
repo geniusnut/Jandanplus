@@ -57,7 +57,10 @@ public class PostFormater {
                 "</head>";
 
         try {
-            document = Jsoup.connect(link).timeout(2500).get();
+            document = Jsoup.connect(link)
+                    .timeout(2500)
+                    .userAgent("Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Safari/535.19")
+                    .get();
         }
         catch (Exception e){
             Log.e(TAG, e.toString());

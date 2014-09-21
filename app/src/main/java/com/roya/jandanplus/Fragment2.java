@@ -31,6 +31,7 @@ public class Fragment2 extends ListFragment {
     private Button button2;
     private Button button3;
 
+    ActionLayout al;
     SimpleAdapter adapter;
     List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
 
@@ -54,6 +55,11 @@ public class Fragment2 extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        al = (ActionLayout) getActivity().findViewById(R.id.action_layout);
+        al.setViewHeight(96);
+        al.setAnimationDuration(200);
+        al.setHiddenOrientation(al.HIDDEN_TOP);
 
         Map<String, Object> item = new HashMap<String, Object>();
         item.put("image",R.drawable.loading);
@@ -96,6 +102,8 @@ public class Fragment2 extends ListFragment {
             button3.setTextColor(Color.parseColor("#88ffffff"));
             button1.setTextColor(Color.parseColor("#88ffffff"));
             getActivity().getActionBar().show();
+            if (al.getVisibility() == View.INVISIBLE){
+                al.show();}
         } else { }
     }
 }

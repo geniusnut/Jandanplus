@@ -45,7 +45,7 @@ public class Fragment1 extends ListFragment {
     ImageButton imageButton;
     RotateAnimation rotateAnimation;
     ActionLayout al;
-
+    boolean isVisibleToUser = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,10 +64,6 @@ public class Fragment1 extends ListFragment {
         imageButton = (ImageButton) getActivity().findViewById(R.id.imageButton);
         final float d = getActivity().getResources().getDisplayMetrics().density;
 
-        al = (ActionLayout) getActivity().findViewById(R.id.action_layout);
-        al.setViewHeight(96);
-        al.setAnimationDuration(200);
-        al.setHiddenOrientation(al.HIDDEN_TOP);
 
         //添加空白区域
         LayoutInflater lif = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -179,7 +175,7 @@ public class Fragment1 extends ListFragment {
 
             @Override
             public void onScroll(AbsListView absListView, int i, int i2, int i3) {
-                if (actionbar != null) {
+                if ((actionbar != null) && isVisibleToUser) {
                     if (listView.getFirstVisiblePosition() > 0) {
                         if (listView.getFirstVisiblePosition() < vPstition) {
                             actionbar.show();
@@ -223,6 +219,10 @@ public class Fragment1 extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        al = (ActionLayout) getActivity().findViewById(R.id.action_layout);
+        al.setViewHeight(96);
+        al.setAnimationDuration(200);
+        al.setHiddenOrientation(al.HIDDEN_TOP);
 
         adapter = new SimpleAdapter(getActivity(), items, R.layout.fragment1_item,
                 new String[]{"link", "image", "title", "by", "tag", "cont"},
@@ -290,6 +290,7 @@ public class Fragment1 extends ListFragment {
     public  void setUserVisibleHint ( boolean isVisibleToUser )  {
         super . setUserVisibleHint ( isVisibleToUser );
         if  ( isVisibleToUser )  {
+            this.isVisibleToUser = true;
             if(activity == null) { activity = getActivity(); }
             if(button1  == null) { button1 = (Button)activity.findViewById(R.id.button1); }
             if(button2  == null) { button2 = (Button)activity.findViewById(R.id.button2); }
@@ -298,6 +299,10 @@ public class Fragment1 extends ListFragment {
             button3.setTextColor(Color.parseColor("#88ffffff"));
             button2.setTextColor(Color.parseColor("#88ffffff"));
             getActivity().getActionBar().show();
-        } else { }
+            if (al.getVisibility() == View.INVISIBLE){
+            al.show();}
+        } else {
+            this.isVisibleToUser = false;
+        }
     }
 }

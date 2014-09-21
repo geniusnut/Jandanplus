@@ -16,6 +16,12 @@
         android:layout_height="100dp"
         android:id="@+id/action_layout">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#fdc354"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="48dp"/>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

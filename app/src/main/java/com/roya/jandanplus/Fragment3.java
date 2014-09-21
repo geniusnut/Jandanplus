@@ -18,6 +18,8 @@ public class Fragment3 extends Fragment{
     private Button button2;
     private Button button3;
 
+    ActionLayout al;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,6 +36,16 @@ public class Fragment3 extends Fragment{
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        al = (ActionLayout) getActivity().findViewById(R.id.action_layout);
+        al.setViewHeight(96);
+        al.setAnimationDuration(200);
+        al.setHiddenOrientation(al.HIDDEN_TOP);
+    }
+
+    @Override
     public  void setUserVisibleHint ( boolean isVisibleToUser )  {
         super . setUserVisibleHint ( isVisibleToUser );
         if  ( isVisibleToUser )  {
@@ -45,6 +57,8 @@ public class Fragment3 extends Fragment{
             button1.setTextColor(Color.parseColor("#88ffffff"));
             button2.setTextColor(Color.parseColor("#88ffffff"));
             getActivity().getActionBar().show();
+            if (al.getVisibility() == View.INVISIBLE){
+                al.show();}
         } else { }
     }
 
