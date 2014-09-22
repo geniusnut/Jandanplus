@@ -32,9 +32,11 @@ public class JandanParser {
     final String TAG = "JandanParser";
 
     final Context context;
-    Document document = null;
+    Document document ;
+    String UA = "Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Safari/535.19";
     final String Home_URL = "http://i.jandan.net/page/";
     final String PIC_URL = "http://i.jandan.net/pic";
+    String PIC_PAGE ;
     OnImageChangedlistener listener;
 
     public interface OnImageChangedlistener{
@@ -56,12 +58,11 @@ public class JandanParser {
         try {
             document = Jsoup.connect(Home_URL +Page)
                     .timeout(2500)
-                    .userAgent("Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Safari/535.19")
+                    .userAgent(UA)
                     .get();
         }
         catch (Exception e){
             Log.e(TAG,e.toString());
-            //Toast.makeText(context,"无法连接到服务器，请稍后再试",Toast.LENGTH_SHORT).show();
             return items;
         }
 
@@ -146,20 +147,30 @@ public class JandanParser {
         return items;
     }
 
+
     public List<Map<String, Object>> JandanPicPage(int Page){
 
         List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
 
-        try {
-            document = Jsoup.connect(PIC_URL)
-                    .timeout(2500)
-                    .userAgent("Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Safari/535.19")
-                    .get();
-        }
-        catch (Exception e){
-            Log.e(TAG,e.toString());
-            //Toast.makeText(context,"无法连接到服务器，请稍后再试",Toast.LENGTH_SHORT).show();
-            return items;
+
+
+        //page
+        if (Page == 0){
+
+            try {
+                document = Jsoup.connect(PIC_URL)
+                        .timeout(2500)
+                        .userAgent(UA)
+                        .get();
+            }
+            catch (Exception e){
+                Log.e(TAG,e.toString());
+                //Toast.makeText(context,"无法连接到服务器，请稍后再试",Toast.LENGTH_SHORT).show();
+                return items;
+            }
+
+            Elements comment_page = document.getElementsByClass("current-comment-page");
+            PIC_PAGE = comment_page.get(0).toString().substring(36,comment_page.get(1).toString().length()-8);
         }
 
         Elements posts = document.select("li");
@@ -213,7 +224,7 @@ public class JandanParser {
             }
 
             //image
-            pattern = Pattern.compile("<img src=\"(.*)\" />");
+            pattern = Pattern.compile("src=\"(\\S*)[^ ]\"");
             matcher = pattern.matcher(i.toString());
             if (matcher.find()){
                 item.put("image",R.drawable.loading);
@@ -224,14 +235,14 @@ public class JandanParser {
                     public void run() {
                         item.put("image", getBitMap(
                                 finalMatcher.group()
-                                        .substring(10, finalMatcher.group().length()-4)));
+                                        .substring(5, finalMatcher.group().length()-1)));
                         listener.OnImageChanged();
                     }
                 }).start();
             }
 
             //add item to items
-            if(item.get("updater") != null) {
+            if(item.get("image") != null) {
                 items.add(item);
             }
         }
