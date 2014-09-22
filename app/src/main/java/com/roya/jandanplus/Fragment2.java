@@ -83,8 +83,8 @@ public class Fragment2 extends ListFragment {
         items.add(item);
 */
         adapter = new SimpleAdapter(getActivity(), items, R.layout.pics_fm2,
-                new String[]{"updater", "time", "text", "image", "xx", "oo","comm"},
-                new int[]{R.id.updater, R.id.time, R.id.text, R.id.image, R.id.xx, R.id.oo, R.id.comm});
+                new String[]{"updater", "time", "text", "image", "xx", "oo"},
+                new int[]{R.id.updater, R.id.time, R.id.text, R.id.image, R.id.xx, R.id.oo});
 
         adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
@@ -104,6 +104,22 @@ public class Fragment2 extends ListFragment {
         setListAdapter(adapter);
 
         new picSeter().execute(0);
+        jandanParser.setOnImageChangedlistener(new JandanParser.OnImageChangedlistener() {
+            @Override
+            public void OnImageChanged() {
+                new notifyDataSetChanged().execute();
+            }
+        });
+    }
+
+    private class notifyDataSetChanged extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+        protected void onPostExecute(Void voids){
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private class picSeter extends AsyncTask<Integer, Void, List<Map<String, Object>>> {

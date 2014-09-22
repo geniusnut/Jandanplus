@@ -212,6 +212,24 @@ public class JandanParser {
                 }
             }
 
+            //image
+            pattern = Pattern.compile("<img src=\"(.*)\" />");
+            matcher = pattern.matcher(i.toString());
+            if (matcher.find()){
+                item.put("image",R.drawable.loading);
+
+                final Matcher finalMatcher = matcher;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        item.put("image", getBitMap(
+                                finalMatcher.group()
+                                        .substring(10, finalMatcher.group().length()-4)));
+                        listener.OnImageChanged();
+                    }
+                }).start();
+            }
+
             //add item to items
             if(item.get("updater") != null) {
                 items.add(item);
