@@ -18,8 +18,6 @@ public class ActionLayout extends RelativeLayout{
     int hiddenOrientation = 1;
 
     private boolean animationNOTRuning = true;
-    private boolean isShowing = true;
-
     private float dpi=0;
     private int viewHeight=0;
     private int viewWidth=0;
@@ -80,8 +78,7 @@ public class ActionLayout extends RelativeLayout{
     }
 
     public void hide(){
-        if (animationNOTRuning && isShowing) {
-            isShowing = false;
+        if (animationNOTRuning && (getVisibility() == VISIBLE)) {
             TranslateAnimation translateAnimation ;
 
             if (hiddenOrientation == HIDDEN_BOTTOM) {
@@ -137,8 +134,7 @@ public class ActionLayout extends RelativeLayout{
     }
 
     public void show(){
-        if (animationNOTRuning && !isShowing) {
-            isShowing=true;
+        if (animationNOTRuning && (getVisibility() == INVISIBLE)) {
             TranslateAnimation translateAnimation = null;
 
             if (hiddenOrientation == HIDDEN_BOTTOM) {

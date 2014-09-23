@@ -179,16 +179,16 @@ public class Fragment1 extends ListFragment {
                     if (listView.getFirstVisiblePosition() > 0) {
                         if (listView.getFirstVisiblePosition() < vPstition) {
                             actionbar.show();
+                            al.show();
                             if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.INVISIBLE)) {
                                 imageButton.startAnimation(translateAnimationUp);
-                                al.show();
                             }
 
                         } else if (listView.getFirstVisiblePosition() != vPstition) {
                             actionbar.hide();
+                            al.hide();
                             if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.VISIBLE)) {
                                 imageButton.startAnimation(translateAnimationDown);
-                                al.hide();
                             }
                             if(adapter.getCount() - 8 <= listView.getFirstVisiblePosition()){
                                 if (!JandanIsParseing) {
@@ -198,9 +198,9 @@ public class Fragment1 extends ListFragment {
                         }
                     } else {
                         actionbar.show();
+                        al.show();
                         if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.INVISIBLE)) {
                             imageButton.startAnimation(translateAnimationUp);
-                            al.show();
                         }
                     }
                     vPstition = listView.getFirstVisiblePosition();
