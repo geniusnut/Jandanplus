@@ -171,6 +171,19 @@ public class JandanParser {
 
             Elements comment_page = document.getElementsByClass("current-comment-page");
             PIC_PAGE = comment_page.get(0).toString().substring(36,comment_page.get(1).toString().length()-8);
+        }else {
+            try {
+                document = Jsoup.connect("http://i.jandan.net/pic/page-"+(Integer.parseInt(PIC_PAGE)-Page))
+                        .timeout(2500)
+                        .userAgent(UA)
+                        .get();
+            }
+            catch (Exception e){
+                Log.e(TAG,e.toString());
+                //Toast.makeText(context,"无法连接到服务器，请稍后再试",Toast.LENGTH_SHORT).show();
+                return items;
+            }
+
         }
 
         Elements posts = document.select("li");
@@ -203,10 +216,11 @@ public class JandanParser {
             }
 
             //text
-            pattern = Pattern.compile("<p>(.*)<br");
-            matcher = pattern.matcher(i.toString());
+            Elements text = i.getElementsByClass("commenttext");
+            pattern = Pattern.compile("<p>(\\S*)<br");
+            matcher = pattern.matcher(text.toString());
             if (matcher.find()){
-                item.put("text",matcher.group().substring(3, matcher.group().length() - 3));
+                item.put("text",matcher.group().substring(3, matcher.group().length() - 4));
             }
 
             //ooxx

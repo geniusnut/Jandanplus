@@ -67,21 +67,7 @@ public class Fragment2 extends ListFragment {
         al.setHiddenOrientation(al.HIDDEN_TOP);
 
         jandanParser = new JandanParser(getActivity().getApplicationContext());
-/*
-        Map<String, Object> item = new HashMap<String, Object>();
-        item.put("updater","roya");
-        item.put("time","1-min ago");
-        item.put("text","!!!!!");
-        item.put("image",R.drawable.loading);
-        item.put("xx","4");
-        item.put("oo","13");
-        item.put("comm","2");
 
-        items.add(item);
-        items.add(item);
-        items.add(item);
-        items.add(item);
-*/
         adapter = new SimpleAdapter(getActivity(), items, R.layout.pics_fm2,
                 new String[]{"updater", "time", "text", "image", "xx", "oo"},
                 new int[]{R.id.updater, R.id.time, R.id.text, R.id.image, R.id.xx, R.id.oo});
@@ -102,6 +88,7 @@ public class Fragment2 extends ListFragment {
             }
         });
         setListAdapter(adapter);
+
 
         new picSeter().execute(0);
         jandanParser.setOnImageChangedlistener(new JandanParser.OnImageChangedlistener() {
