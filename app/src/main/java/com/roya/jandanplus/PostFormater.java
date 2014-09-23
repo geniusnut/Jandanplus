@@ -30,7 +30,8 @@ public class PostFormater {
                 "\t\t\tbackground:#fefefe;\n" +
                 "\t\t\tfont-family:Arial, Helvetica, sans-serif;\n" +
                 "\t\t\tfont-size:1em;\n" +
-                "\t\t\tcolor: #42454c; \n" +
+                "\t\t\tcolor: #454545; \n" +
+                "\t\t\tline-height:160%;"+
                 "\t\t\tpadding:3%;\n" +
                 "\t\t}\n" +
                 "\t\tembed {\n" +
@@ -42,15 +43,15 @@ public class PostFormater {
                 "\t\t}\n" +
                 "\t\tem {\n" +
                 "\t\t\tfont-size:0.8em;\n" +
-                "\t\t\tcolor: #b3b4b7; \n" +
+                "\t\t\tcolor: #b3b3b3; \n" +
                 "\t\t}\n" +
                 "\t\t.postinfo {\n" +
                 "\t\t\tfont-size:0.8em;\n" +
-                "\t\t\tcolor: #b3b4b7; \n" +
+                "\t\t\tcolor: #b3b3b3; \n" +
                 "\t\t}\n" +
                 "\t\ta {  \n" +
                 "\t\t\tfont-size:1.1em;\n" +
-                "\t\t\tcolor: #42454c;  \n" +
+                "\t\t\tcolor: #454545;  \n" +
                 "\t\t\ttext-decoration: none;  \n" +
                 "\t\t}  \n" +
                 "\t</style>\n" +

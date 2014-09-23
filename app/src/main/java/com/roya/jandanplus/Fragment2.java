@@ -1,6 +1,7 @@
 package com.roya.jandanplus;
 
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -15,8 +16,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -31,7 +34,10 @@ public class Fragment2 extends ListFragment {
     private Button button1;
     private Button button2;
     private Button button3;
+    ListView listView;
+    ActionBar actionbar;
 
+    boolean isVisibleToUser = false;
 
     JandanParser jandanParser;
     boolean JandanIsParseing = false;
@@ -56,6 +62,47 @@ public class Fragment2 extends ListFragment {
         LayoutInflater lif = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         getListView().addHeaderView(lif.inflate(R.layout.header_view, null));
         getListView().addFooterView(lif.inflate(R.layout.footer_view, null));
+
+        //处理滚动
+
+        listView = getListView();
+        actionbar = getActivity().getActionBar();
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            int vPstition = 0;
+
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i2, int i3) {
+                if ((actionbar != null) && isVisibleToUser) {
+                    if (listView.getFirstVisiblePosition() > 0) {
+                        if (listView.getFirstVisiblePosition() < vPstition) {
+                            actionbar.show();
+                            al.show();
+
+
+                        } else if (listView.getFirstVisiblePosition() != vPstition) {
+                            actionbar.hide();
+                            al.hide();
+                            /*
+                            if(adapter.getCount() - 8 <= listView.getFirstVisiblePosition()){
+                                if (!JandanIsParseing) {
+                                    new listviewSeter().execute(++Jandanpage);
+                                }
+                            }*/
+                        }
+                    } else {
+                        actionbar.show();
+                        al.show();
+
+                    }
+                    vPstition = listView.getFirstVisiblePosition();
+                }
+            }
+        });
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +135,6 @@ public class Fragment2 extends ListFragment {
             }
         });
         setListAdapter(adapter);
-
 
         new picSeter().execute(0);
         jandanParser.setOnImageChangedlistener(new JandanParser.OnImageChangedlistener() {
@@ -129,19 +175,31 @@ public class Fragment2 extends ListFragment {
     }
 
     @Override
-    public  void setUserVisibleHint ( boolean isVisibleToUser )  {
-        super . setUserVisibleHint ( isVisibleToUser );
-        if  ( isVisibleToUser )  {
-            if(activity == null) { activity = getActivity(); }
-            if(button1  == null) { button1 = (Button)activity.findViewById(R.id.button1); }
-            if(button2  == null) { button2 = (Button)activity.findViewById(R.id.button2); }
-            if(button3  == null) { button3 = (Button)activity.findViewById(R.id.button3); }
+    public  void setUserVisibleHint ( boolean isVisibleToUser ) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            this.isVisibleToUser = true;
+            if (activity == null) {
+                activity = getActivity();
+            }
+            if (button1 == null) {
+                button1 = (Button) activity.findViewById(R.id.button1);
+            }
+            if (button2 == null) {
+                button2 = (Button) activity.findViewById(R.id.button2);
+            }
+            if (button3 == null) {
+                button3 = (Button) activity.findViewById(R.id.button3);
+            }
             button2.setTextColor(Color.parseColor("#ffffffff"));
             button3.setTextColor(Color.parseColor("#88ffffff"));
             button1.setTextColor(Color.parseColor("#88ffffff"));
             getActivity().getActionBar().show();
-            if (al.getVisibility() == View.INVISIBLE){
-                al.show();}
-        } else { }
+            if (al.getVisibility() == View.INVISIBLE) {
+                al.show();
+            }
+        } else {
+            this.isVisibleToUser = false;
+        }
     }
 }
