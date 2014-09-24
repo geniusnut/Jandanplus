@@ -220,7 +220,7 @@ public class JandanParser {
             pattern = Pattern.compile("<p>(\\S*)<br");
             matcher = pattern.matcher(text.toString());
             if (matcher.find()){
-                item.put("text",matcher.group().substring(3, matcher.group().length() - 4));
+                item.put("text",matcher.group().substring(3, matcher.group().length() - 3));
             }
 
             //ooxx
@@ -247,6 +247,7 @@ public class JandanParser {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        //Log.e(TAG,finalMatcher.group().substring(5, finalMatcher.group().length()-1));
                         item.put("image", getBitMap(
                                 finalMatcher.group()
                                         .substring(5, finalMatcher.group().length()-1)));
@@ -274,6 +275,9 @@ public class JandanParser {
             return null;
         }
         bitmap = BitmapFactory.decodeStream(is);
+        if  ( bitmap.getHeight() >= 4096 ){
+            return Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth()/(bitmap.getHeight()/4096),4096);
+        }
         return bitmap;
     }
 

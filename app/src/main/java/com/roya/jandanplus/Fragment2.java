@@ -40,6 +40,7 @@ public class Fragment2 extends ListFragment {
     boolean isVisibleToUser = false;
 
     JandanParser jandanParser;
+    int JandanPicPage = 0;
     boolean JandanIsParseing = false;
 
     ActionLayout al;
@@ -64,7 +65,6 @@ public class Fragment2 extends ListFragment {
         getListView().addFooterView(lif.inflate(R.layout.footer_view, null));
 
         //处理滚动
-
         listView = getListView();
         actionbar = getActivity().getActionBar();
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -87,12 +87,12 @@ public class Fragment2 extends ListFragment {
                         } else if (listView.getFirstVisiblePosition() != vPstition) {
                             actionbar.hide();
                             al.hide();
-                            /*
+
                             if(adapter.getCount() - 8 <= listView.getFirstVisiblePosition()){
                                 if (!JandanIsParseing) {
-                                    new listviewSeter().execute(++Jandanpage);
+                                    new picSeter().execute(++JandanPicPage);
                                 }
-                            }*/
+                            }
                         }
                     } else {
                         actionbar.show();
@@ -136,7 +136,7 @@ public class Fragment2 extends ListFragment {
         });
         setListAdapter(adapter);
 
-        new picSeter().execute(0);
+        new picSeter().execute(JandanPicPage);
         jandanParser.setOnImageChangedlistener(new JandanParser.OnImageChangedlistener() {
             @Override
             public void OnImageChanged() {
