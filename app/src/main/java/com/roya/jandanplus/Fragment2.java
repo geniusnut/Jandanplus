@@ -171,6 +171,10 @@ public class Fragment2 extends ListFragment {
             items.addAll(result);
             adapter.notifyDataSetChanged();
             JandanIsParseing = false;
+            if(adapter.getCount() <= 10){
+                new picSeter().execute(JandanPicPage);
+                JandanPicPage++;
+            }
         }
     }
 
