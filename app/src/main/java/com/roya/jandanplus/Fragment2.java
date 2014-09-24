@@ -90,7 +90,8 @@ public class Fragment2 extends ListFragment {
 
                             if(adapter.getCount() - 8 <= listView.getFirstVisiblePosition()){
                                 if (!JandanIsParseing) {
-                                    new picSeter().execute(++JandanPicPage);
+                                    new picSeter().execute(JandanPicPage);
+                                    JandanPicPage++;
                                 }
                             }
                         }
@@ -136,7 +137,6 @@ public class Fragment2 extends ListFragment {
         });
         setListAdapter(adapter);
 
-        new picSeter().execute(JandanPicPage);
         jandanParser.setOnImageChangedlistener(new JandanParser.OnImageChangedlistener() {
             @Override
             public void OnImageChanged() {
@@ -179,6 +179,11 @@ public class Fragment2 extends ListFragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             this.isVisibleToUser = true;
+
+            if (JandanPicPage == 0){
+                new picSeter().execute(JandanPicPage);
+                JandanPicPage++;
+            }
             if (activity == null) {
                 activity = getActivity();
             }
