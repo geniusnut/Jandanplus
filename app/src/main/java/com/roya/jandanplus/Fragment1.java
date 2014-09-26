@@ -64,7 +64,6 @@ public class Fragment1 extends ListFragment {
         imageButton = (ImageButton) getActivity().findViewById(R.id.imageButton);
         final float d = getActivity().getResources().getDisplayMetrics().density;
 
-
         //添加空白区域
         LayoutInflater lif = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //View headerView = lif.inflate(R.layout.header_view, null);
