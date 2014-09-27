@@ -18,10 +18,10 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="48dp"
             android:background="#fdc354"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="48dp"/>
+            android:layout_marginBottom="52dp"/>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
