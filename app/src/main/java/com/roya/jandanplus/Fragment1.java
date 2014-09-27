@@ -47,6 +47,7 @@ public class Fragment1 extends ListFragment {
     ImageButton imageButton;
     Animation animation;
     ActionLayout al;
+    ActionLayout aimageButton;
     boolean isVisibleToUser = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,23 +92,10 @@ public class Fragment1 extends ListFragment {
         });
 
         //初始化浮动按钮
-        final TranslateAnimation translateAnimationDown = new TranslateAnimation(
-                Animation.ABSOLUTE, 0f,
-                Animation.ABSOLUTE, 0f,
-                Animation.ABSOLUTE, 0f,
-                Animation.ABSOLUTE, 92f * d);
-        translateAnimationDown.setDuration(250);
-
-        final TranslateAnimation translateAnimationUp = new TranslateAnimation(
-                Animation.ABSOLUTE, 0f,
-                Animation.ABSOLUTE, 0f,
-                Animation.ABSOLUTE, 92f * d,
-                Animation.ABSOLUTE, 0f);
-        translateAnimationUp.setDuration(250);
-
-        translateAnimationDown.setFillAfter(true);
-        translateAnimationUp.setFillAfter(true);
-
+        aimageButton = (ActionLayout) getActivity().findViewById(R.id.aimageButton_fm1);
+        aimageButton.setViewHeight(92);
+        aimageButton.setAnimationDuration(250);
+        aimageButton.setHiddenOrientation(al.HIDDEN_BOTTOM);
         animation =  AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
         imageButton.startAnimation(animation);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -122,48 +110,6 @@ public class Fragment1 extends ListFragment {
                 new listviewSeter().execute(++Jandanpage);
             }
         });
-
-        final boolean[] animationIsNotRuning = {true};
-
-        translateAnimationDown.setAnimationListener(new Animation.AnimationListener() {
-             @Override
-             public void onAnimationStart(Animation animation) {
-                animationIsNotRuning[0] = false;
-             }
-
-             @Override
-             public void onAnimationEnd(Animation animation) {
-                 imageButton.setVisibility(View.INVISIBLE);
-                 imageButton.clearAnimation();
-                 animationIsNotRuning[0] = true;
-
-             }
-
-             @Override
-             public void onAnimationRepeat(Animation animation) {
-
-             }
-        });
-        translateAnimationUp.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                animationIsNotRuning[0] = false;
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                imageButton.setVisibility(View.VISIBLE);
-                imageButton.clearAnimation();
-                animationIsNotRuning[0] = true;
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
@@ -180,16 +126,11 @@ public class Fragment1 extends ListFragment {
                         if (listView.getFirstVisiblePosition() < vPstition) {
                             actionbar.show();
                             al.show();
-                            if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.INVISIBLE)) {
-                                imageButton.startAnimation(translateAnimationUp);
-                            }
-
+                            aimageButton.show();
                         } else if (listView.getFirstVisiblePosition() != vPstition) {
                             actionbar.hide();
                             al.hide();
-                            if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.VISIBLE)) {
-                                imageButton.startAnimation(translateAnimationDown);
-                            }
+                            aimageButton.hide();
                             if(adapter.getCount() - 8 <= listView.getFirstVisiblePosition()){
                                 if (!JandanIsParseing) {
                                     new listviewSeter().execute(++Jandanpage);
@@ -199,9 +140,7 @@ public class Fragment1 extends ListFragment {
                     } else {
                         actionbar.show();
                         al.show();
-                        if (animationIsNotRuning[0] && (imageButton.getVisibility() == View.INVISIBLE)) {
-                            imageButton.startAnimation(translateAnimationUp);
-                        }
+                        aimageButton.show();
                     }
                     vPstition = listView.getFirstVisiblePosition();
                 }
