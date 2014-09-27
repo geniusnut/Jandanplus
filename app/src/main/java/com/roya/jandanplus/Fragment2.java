@@ -17,6 +17,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.Button;
@@ -41,7 +43,7 @@ public class Fragment2 extends ListFragment {
     ActionBar actionbar;
     ImageButton imageButton;
 
-    RotateAnimation rotateAnimation;
+    Animation animation;
 
     boolean isVisibleToUser = false;
 
@@ -75,18 +77,17 @@ public class Fragment2 extends ListFragment {
         getListView().addFooterView(lif.inflate(R.layout.footer_view, null));
 
         //imageButton
-        aimageButton = (ActionLayout) getActivity().findViewById(R.id.aimageButton);
+        aimageButton = (ActionLayout) getActivity().findViewById(R.id.aimageButton_fm2);
         aimageButton.setViewHeight(92);
         aimageButton.setAnimationDuration(250);
         aimageButton.setHiddenOrientation(al.HIDDEN_BOTTOM);
         imageButton = (ImageButton) getActivity().findViewById(R.id.refresh_fm2_btn);
-        rotateAnimation = new RotateAnimation(0, 1440, Animation.RELATIVE_TO_SELF + 36 * d, Animation.RELATIVE_TO_SELF + 36 * d);
-        rotateAnimation.setDuration(1800);
+        animation =  AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (imageButton.getVisibility() == View.VISIBLE){
-                    imageButton.startAnimation(rotateAnimation);
+                    imageButton.startAnimation(animation);
                 }
                 JandanPicPage = 0;
                 items.clear();
@@ -224,7 +225,7 @@ public class Fragment2 extends ListFragment {
                 new picSeter().execute(JandanPicPage);
                 JandanPicPage++;
                 if (imageButton.getVisibility() == View.VISIBLE){
-                    imageButton.startAnimation(rotateAnimation);
+                    imageButton.startAnimation(animation);
                 }
             }
             if (activity == null) {

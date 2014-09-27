@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
@@ -43,7 +45,7 @@ public class Fragment1 extends ListFragment {
     int Jandanpage = 0;
     boolean JandanIsParseing = false;
     ImageButton imageButton;
-    RotateAnimation rotateAnimation;
+    Animation animation;
     ActionLayout al;
     boolean isVisibleToUser = false;
     @Override
@@ -61,7 +63,7 @@ public class Fragment1 extends ListFragment {
 
         final ListView listView = getListView();
         final ActionBar actionbar = getActivity().getActionBar();
-        imageButton = (ImageButton) getActivity().findViewById(R.id.imageButton);
+        imageButton = (ImageButton) getActivity().findViewById(R.id.refresh_fm1_btn);
         final float d = getActivity().getResources().getDisplayMetrics().density;
 
         //添加空白区域
@@ -106,13 +108,12 @@ public class Fragment1 extends ListFragment {
         translateAnimationDown.setFillAfter(true);
         translateAnimationUp.setFillAfter(true);
 
-        rotateAnimation = new RotateAnimation(0, 1440,Animation.RELATIVE_TO_SELF+36*d,Animation.RELATIVE_TO_SELF+36*d);
-        rotateAnimation.setDuration(1800);
-        imageButton.startAnimation(rotateAnimation);
+        animation =  AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
+        imageButton.startAnimation(animation);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageButton.startAnimation(rotateAnimation);
+                imageButton.startAnimation(animation);
                 Jandanpage = 0;
                 if (!listView.isStackFromBottom()) {
                     listView.setStackFromBottom(true);

@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.Button;
@@ -37,7 +39,7 @@ public class Fragment3 extends ListFragment {
     ActionBar actionbar;
     ImageButton imageButton;
 
-    RotateAnimation rotateAnimation;
+    Animation animation;
 
     boolean isVisibleToUser = false;
 
@@ -85,13 +87,12 @@ public class Fragment3 extends ListFragment {
         aimageButton.setAnimationDuration(250);
         aimageButton.setHiddenOrientation(al.HIDDEN_BOTTOM);
         imageButton = (ImageButton) getActivity().findViewById(R.id.refresh_fm3_btn);
-        rotateAnimation = new RotateAnimation(0, 1440, Animation.RELATIVE_TO_SELF + 36 * d, Animation.RELATIVE_TO_SELF + 36 * d);
-        rotateAnimation.setDuration(1800);
+        animation =  AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (imageButton.getVisibility() == View.VISIBLE){
-                    imageButton.startAnimation(rotateAnimation);
+                    imageButton.startAnimation(animation);
                 }
                 JandanPicPage = 0;
                 items.clear();
@@ -229,7 +230,7 @@ public class Fragment3 extends ListFragment {
                 JandanPicPage++;
                 if(imageButton != null) {
                     if (imageButton.getVisibility() == View.VISIBLE) {
-                        imageButton.startAnimation(rotateAnimation);
+                        imageButton.startAnimation(animation);
                     }
                 }
             }

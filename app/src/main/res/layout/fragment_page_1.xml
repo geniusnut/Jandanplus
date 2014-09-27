@@ -17,16 +17,22 @@
         >
     </ListView>
 
-    <ImageButton
+    <com.roya.jandanplus.ActionLayout
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:scaleType="centerCrop"
-        android:id="@+id/imageButton"
-        android:src="@drawable/refresh_s"
+        android:layout_margin="20dp"
+        android:id="@+id/aimageButton_fm1"
         android:background="@drawable/refresh"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="20dp" />
+        android:layout_alignParentEnd="true">
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:id="@+id/refresh_fm1_btn"
+            android:src="@drawable/refresh_s"
+            android:background="@null"/>
+    </com.roya.jandanplus.ActionLayout>
 
 </RelativeLayout>
