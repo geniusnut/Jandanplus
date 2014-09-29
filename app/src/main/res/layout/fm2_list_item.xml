@@ -73,6 +73,7 @@
                 android:layout_margin="2dp"
                 android:orientation="horizontal"
                 android:gravity="center"
+                android:id="@+id/btn_XX"
                 android:background="@android:color/holo_red_light">
                 <TextView
                     android:layout_width="wrap_content"
@@ -92,6 +93,7 @@
                 android:padding="6dp"
                 android:layout_margin="2dp"
                 android:gravity="center"
+                android:id="@+id/btn_OO"
                 android:orientation="horizontal"
                 android:background="@android:color/holo_blue_light">
                 <TextView

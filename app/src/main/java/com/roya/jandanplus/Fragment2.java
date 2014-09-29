@@ -6,30 +6,24 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
-import android.support.v4.view.MotionEventCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -151,9 +145,29 @@ public class Fragment2 extends ListFragment {
 
         jandanParser = new JandanParser(getActivity().getApplicationContext());
 
-        adapter = new SimpleAdapter(getActivity(), items, R.layout.pics_fm2,
+        adapter = new SimpleAdapter(getActivity(), items, R.layout.fm2_list_item,
                 new String[]{"updater", "time", "text", "image", "xx", "oo"},
-                new int[]{R.id.updater, R.id.time, R.id.text, R.id.image, R.id.xx, R.id.oo});
+                new int[]{R.id.updater, R.id.time, R.id.text, R.id.image, R.id.xx, R.id.oo}){
+            @Override
+            public View getView(int position, View convertView,ViewGroup parent) {
+                final View view=super.getView(position, convertView, parent);
+                LinearLayout abtnXX = (LinearLayout) view.findViewById(R.id.btn_XX);
+                LinearLayout abtnOO = (LinearLayout) view.findViewById(R.id.btn_OO);
+                abtnXX.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getActivity(),"XX",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                abtnOO.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getActivity(),"OO",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return view;
+            }
+        };
 
         adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override

@@ -1,23 +1,32 @@
 <resources>
 
     <style name="AppTheme" parent="android:Theme.Holo.Light">
-    <!--<item name="android:actionBarStyle">@style/MyActionBar</item>-->
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:actionBarSize">48dp</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:backgroundStacked">#fdc354</item>
-        <item name="android:backgroundSplit">#fdc354</item>
+        <item name="android:actionOverflowButtonStyle">@style/mActionButton</item>
+        <item name="android:popupMenuStyle">@style/mPopupMenu</item>
+    </style>
+
+     <style name="mPopupMenu" parent="android:Widget.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/edbt_n</item>
 
     </style>
 
-    <!--
     <style name="MyActionBar" parent="android:Widget.ActionBar">
         <item name="android:titleTextStyle">@style/MyTitleTextStyle</item>
-        <item name="android:background">#00</item>
+        <item name="android:background">#fdbc40</item>
+        <item name="android:backgroundStacked">#fdbc40</item>
+        <item name="android:backgroundSplit">#fdbc40</item>
+    </style>
+
+    <style name="mActionButton" parent="android:Widget.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_actiono_verflow</item>
     </style>
 
     <style name="MyTitleTextStyle">
-        <item name="android:textColor">#404040</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#fdbc40</item>
+        <item name="android:textSize">1sp</item>
     </style>
-    -->
+
 </resources>

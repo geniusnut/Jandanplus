@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
@@ -15,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -156,7 +153,7 @@ public class Fragment3 extends ListFragment {
         al.setHiddenOrientation(al.HIDDEN_TOP);
         jandanParser = new JandanParser(getActivity().getApplicationContext());
 
-        adapter = new SimpleAdapter(getActivity(), items, R.layout.pics_fm2,
+        adapter = new SimpleAdapter(getActivity(), items, R.layout.fm2_list_item,
                 new String[]{"updater", "time", "text", "image", "xx", "oo"},
                 new int[]{R.id.updater, R.id.time, R.id.text, R.id.image, R.id.xx, R.id.oo});
 
