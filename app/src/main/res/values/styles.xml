@@ -10,7 +10,6 @@
 
      <style name="mPopupMenu" parent="android:Widget.ListPopupWindow">
         <item name="android:popupBackground">@drawable/edbt_n</item>
-
     </style>
 
     <style name="MyActionBar" parent="android:Widget.ActionBar">
@@ -25,8 +24,10 @@
     </style>
 
     <style name="MyTitleTextStyle">
-        <item name="android:textColor">#fdbc40</item>
-        <item name="android:textSize">1sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">italic|bold</item>
+        <item name="android:typeface">serif</item>
     </style>
 
 </resources>
