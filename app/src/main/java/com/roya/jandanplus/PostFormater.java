@@ -27,7 +27,7 @@ public class PostFormater {
                 "\t<title>CSS</title>\n" +
                 "\t<style type=\"text/css\">\n" +
                 "\t\tbody {\n" +
-                "\t\t\tbackground:#fefefe;\n" +
+                "\t\t\tbackground:#fafafa;\n" +
                 "\t\t\tfont-family:Arial, Helvetica, sans-serif;\n" +
                 "\t\t\tfont-size:1em;\n" +
                 "\t\t\tcolor: #454545; \n" +
@@ -42,11 +42,11 @@ public class PostFormater {
                 "\t\t\theight: auto\n" +
                 "\t\t}\n" +
                 "\t\tem {\n" +
-                "\t\t\tfont-size:0.8em;\n" +
+                "\t\t\tfont-size:0.9em;\n" +
                 "\t\t\tcolor: #b3b3b3; \n" +
                 "\t\t}\n" +
                 "\t\t.postinfo {\n" +
-                "\t\t\tfont-size:0.8em;\n" +
+                "\t\t\tfont-size:0.9em;\n" +
                 "\t\t\tcolor: #b3b3b3; \n" +
                 "\t\t}\n" +
                 "\t\ta {  \n" +
@@ -81,7 +81,7 @@ public class PostFormater {
                 "\t<title>CSS</title>\n" +
                 "\t<style type=\"text/css\">\n" +
                 "\t\tbody {\n" +
-                "\t\t\tbackground:#fefefe;\n" +
+                "\t\t\tbackground:#fafafa;\n" +
                 "\t\t\tfont-family:Arial, Helvetica, sans-serif;\n" +
                 "\t\t\tfont-size:1em;\n" +
                 "\t\t\tcolor: #42454c; \n" +
@@ -94,11 +94,11 @@ public class PostFormater {
                 "\t\t\theight: auto\n" +
                 "\t\t}\n" +
                 "\t\tem {\n" +
-                "\t\t\tfont-size:0.8em;\n" +
+                "\t\t\tfont-size:0.9em;\n" +
                 "\t\t\tcolor: #b3b4b7; \n" +
                 "\t\t}\n" +
                 "\t\t.postinfo {\n" +
-                "\t\t\tfont-size:0.8em;\n" +
+                "\t\t\tfont-size:0.9em;\n" +
                 "\t\t\tcolor: #b3b4b7; \n" +
                 "\t\t}\n" +
                 "\t\ta {  \n" +

@@ -1,6 +1,8 @@
 package com.roya.jandanplus;
 
 import android.app.ActionBar;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -9,12 +11,14 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 
 import android.support.v4.view.ViewPager;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -41,7 +45,6 @@ public class MainActivity extends FragmentActivity {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_main);
        // setActionBar();
-
         mPager = (ViewPager) findViewById(R.id.pager);
 
         fragmentList = new ArrayList<Fragment>();
@@ -93,15 +96,30 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item ) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+
+            Intent settingIntene = new Intent(this, SettingActivity.class);
+            startActivity(settingIntene);
+            return true;
+        }
+        if (id == R.id.action_about) {
+
+            Intent settingIntene = new Intent(this, AboutAcitivty.class);
+            startActivity(settingIntene);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private void setActionBar() {
-
-
         LayoutInflater inflater = (LayoutInflater) getActionBar()
                 .getThemedContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 

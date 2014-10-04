@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,7 +39,6 @@ public class PostActivity extends Activity {
         //getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_post);
         setActionBar();
-
         link = getIntent().getStringExtra("link");
         title = getIntent().getStringExtra(Intent.EXTRA_TITLE);
         comm = getIntent().getStringExtra("comm");
@@ -46,10 +46,12 @@ public class PostActivity extends Activity {
         TextView mComm = (TextView) findViewById(R.id.btn_post_comm_text);
         mComm.setText(comm);
         webview = (WebView) findViewById(R.id.webview);
+        webview.clearCache(true);
         new webViewLoad().execute(link);
 
 
         commwebview = (WebView) findViewById(R.id.post_comm);
+        commwebview.clearCache(true);
         new commViewLoad().execute(link);
 
 
