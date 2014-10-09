@@ -4,10 +4,12 @@ package com.roya.jandanplus;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -49,6 +51,9 @@ public class Fragment1 extends ListFragment {
     ActionLayout al;
     ActionLayout aimageButton;
     boolean isVisibleToUser = false;
+    boolean PreLoaded = false;
+    SharedPreferences prefs;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -151,12 +156,16 @@ public class Fragment1 extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
+        PreLoaded = prefs.getBoolean("Pre-loaded",true);
 
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //设置
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 
         al = (ActionLayout) getActivity().findViewById(R.id.action_layout);
         al.setViewHeight(96);

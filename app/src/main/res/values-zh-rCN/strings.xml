@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Jandan-</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">煎蛋-</string>
     <string name="action_settings">设置</string>
     <string name="Loading">载入中…</string>
     <string name="NEWS">首页</string>

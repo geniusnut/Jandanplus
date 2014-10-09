@@ -84,7 +84,7 @@ public class PostActivity extends Activity {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, title + "\n" + link);
-                Intent chooserIntent = Intent.createChooser(intent, "Select app to share");
+                Intent chooserIntent = Intent.createChooser(intent, "Share");
                 startActivity(chooserIntent);
             }
         });

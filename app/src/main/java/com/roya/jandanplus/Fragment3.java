@@ -3,12 +3,15 @@ package com.roya.jandanplus;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +53,9 @@ public class Fragment3 extends ListFragment {
     List<Map<String, Object>> items = new ArrayList<Map<String,Object>>();
 
 
+    boolean PreLoaded = false;
+    SharedPreferences prefs;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,12 +63,6 @@ public class Fragment3 extends ListFragment {
                 R.layout.fragment_page_3, container, false);
 
         return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
     }
 
 
@@ -147,6 +147,9 @@ public class Fragment3 extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //设置
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+
         al = (ActionLayout) getActivity().findViewById(R.id.action_layout);
         al.setViewHeight(96);
         al.setAnimationDuration(200);
@@ -216,6 +219,24 @@ public class Fragment3 extends ListFragment {
             }
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        PreLoaded = prefs.getBoolean("Pre-loaded",true);
+        if(PreLoaded){
+            if (JandanPicPage == 0){
+                new picSeter().execute(JandanPicPage);
+                JandanPicPage++;
+                if(imageButton != null) {
+                    if (imageButton.getVisibility() == View.VISIBLE) {
+                        imageButton.startAnimation(animation);
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public  void setUserVisibleHint ( boolean isVisibleToUser ) {
         super.setUserVisibleHint(isVisibleToUser);

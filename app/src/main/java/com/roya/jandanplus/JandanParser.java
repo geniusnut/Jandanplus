@@ -39,6 +39,7 @@ public class JandanParser {
     final String OOXX_URL = "http://i.jandan.net/ooxx";
     String PIC_PAGE ;
     String OOXX_PAGE ;
+    int timeout = 5000;
     OnImageChangedlistener listener;
 
     public interface OnImageChangedlistener{
@@ -59,7 +60,7 @@ public class JandanParser {
 
         try {
             document = Jsoup.connect(Home_URL +Page)
-                    .timeout(2500)
+                    .timeout(timeout)
                     .userAgent(UA)
                     .get();
         }
@@ -159,7 +160,7 @@ public class JandanParser {
 
             try {
                 document = Jsoup.connect(PIC_URL)
-                        .timeout(2500)
+                        .timeout(timeout)
                         .userAgent(UA)
                         .get();
             }
@@ -174,7 +175,7 @@ public class JandanParser {
         }else {
             try {
                 document = Jsoup.connect("http://i.jandan.net/pic/page-"+(Integer.parseInt(PIC_PAGE)-Page))
-                        .timeout(2500)
+                        .timeout(timeout)
                         .userAgent(UA)
                         .get();
             }
@@ -238,7 +239,7 @@ public class JandanParser {
             }
 
             //image
-            pattern = Pattern.compile("src=\"(\\S*)[^ ]\"");
+            pattern = Pattern.compile("src=\"(\\S*)[^ ][jpg]\"");
             matcher = pattern.matcher(i.toString());
             if (matcher.find()){
                 item.put("image",R.drawable.loading);
@@ -274,7 +275,7 @@ public class JandanParser {
 
             try {
                 document = Jsoup.connect(OOXX_URL)
-                        .timeout(2500)
+                        .timeout(timeout)
                         .userAgent(UA)
                         .get();
             }
@@ -289,7 +290,7 @@ public class JandanParser {
         }else {
             try {
                 document = Jsoup.connect("http://i.jandan.net/ooxx/page-"+(Integer.parseInt(OOXX_PAGE)-Page))
-                        .timeout(2500)
+                        .timeout(timeout)
                         .userAgent(UA)
                         .get();
             }
@@ -353,7 +354,7 @@ public class JandanParser {
             }
 
             //image
-            pattern = Pattern.compile("src=\"(\\S*)[^ ]\"");
+            pattern = Pattern.compile("src=\"(\\S*)[^ ][jpg]\"");
             matcher = pattern.matcher(i.toString());
             if (matcher.find()){
                 item.put("image",R.drawable.loading);

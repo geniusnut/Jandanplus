@@ -1,19 +1,21 @@
 <resources>
 
     <style name="AppTheme" parent="android:Theme.Holo.Light">
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:actionBarStyle">@style/mActionBar</item>
         <item name="android:actionBarSize">56dp</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionOverflowButtonStyle">@style/mActionButton</item>
         <item name="android:popupMenuStyle">@style/mPopupMenu</item>
+
+        <item name="android:homeAsUpIndicator">@drawable/ic_back_light</item>
     </style>
 
      <style name="mPopupMenu" parent="android:Widget.ListPopupWindow">
         <item name="android:popupBackground">@drawable/edbt_n</item>
     </style>
 
-    <style name="MyActionBar" parent="android:Widget.ActionBar">
-        <item name="android:titleTextStyle">@style/MyTitleTextStyle</item>
+    <style name="mActionBar" parent="android:Widget.ActionBar">
+        <item name="android:titleTextStyle">@style/mTitleTextStyle</item>
         <item name="android:background">#fdbc40</item>
         <item name="android:backgroundStacked">#fdbc40</item>
         <item name="android:backgroundSplit">#fdbc40</item>
@@ -23,7 +25,7 @@
         <item name="android:src">@drawable/ic_actiono_verflow</item>
     </style>
 
-    <style name="MyTitleTextStyle">
+    <style name="mTitleTextStyle">
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">italic|bold</item>

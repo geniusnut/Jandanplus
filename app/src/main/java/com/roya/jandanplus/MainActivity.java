@@ -2,7 +2,7 @@ package com.roya.jandanplus;
 
 import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import android.view.Window;
 import android.widget.Button;
 
 import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -76,6 +74,7 @@ public class MainActivity extends FragmentActivity {
         button1.setOnClickListener(headler);
         button2.setOnClickListener(headler);
         button3.setOnClickListener(headler);
+
     }
 
     private class FragmentPagerAdapter extends FragmentStatePagerAdapter {
@@ -105,7 +104,7 @@ public class MainActivity extends FragmentActivity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
 
-            Intent settingIntene = new Intent(this, SettingActivity.class);
+            Intent settingIntene = new Intent(this, PerferenceActivity.class);
             startActivity(settingIntene);
             return true;
         }
